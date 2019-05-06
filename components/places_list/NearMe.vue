@@ -16,7 +16,7 @@ export default {
     name: 'near-me',
     data() {
         return {
-            nearMeFilter: this.$store.getters['places_list_store/hasUserCoords'] || false,
+            nearMeFilter: this.$store.getters['places_list_store/hasUserCoords'],
         }
 
     },

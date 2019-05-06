@@ -124,7 +124,7 @@ function agentFromCache(state,slug){
             axios.defaults.withCredentials = true
             return new Promise( (resolve,reject) =>{
           
-               console.log(API.PLACE_URL(placeSlug))
+             
               axios.get(API.PLACE_URL(placeSlug))
               .then(function (response) {
            

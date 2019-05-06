@@ -48,6 +48,7 @@ import PlaceListItem from '@/components/places_list/PlaceListItem'
 export default {
   name: 'places-list',
   layout: 'default',
+  middleware: "toolbar-items",
   data () {
 
     return {
@@ -55,14 +56,15 @@ export default {
        
     }
   },
-  // beforeRouteLeave (to, from, next) {
-  //   // called when the route that renders this component is about to
-  //   // be navigated away from.
-  //   // has access to `this` component instance.
-  //     //remove the searach box and the filters
-  //     this.$store.dispatch('common/updateToolBar',{show: true, component: ''})
-  //     next()
-  // },
+
+  beforeRouteLeave (to, from, next) {
+    // called when the route that renders this component is about to
+    // be navigated away from.
+    // has access to `this` component instance.
+      //remove the searach box and the filters
+      this.$store.dispatch('common/updateToolBar',{show: true, component: ''})
+      next()
+  },
   components: { Subscribe, LoadMore, MobileFooter, PlaceListItem},
  
   async fetch({store}){

@@ -5,20 +5,20 @@
         <!-- <v-toolbar-title>{{ $store.state.common.title }}</v-toolbar-title> --> 
         <v-spacer></v-spacer>
         <v-toolbar-items>
-
-            
-
+            <no-ssr placeholder="Loading...">
             <component :is="component" class="d-flex justify-space-around align-center mt-1">
                 <slot></slot>
                 
             </component>
+           </no-ssr>
             <v-btn class="ma-2" style="height:50%" v-show="!$vuetify.breakpoint.smAndDown" v-if="!loggedIn" to="/agent/login" outline>Become An Agent</v-btn>
            
             
             <v-btn class="ma-2" style="height:50%" v-show="!$vuetify.breakpoint.smAndDown" v-if="loggedIn" to="/agent/logout" outline><v-icon>logout</v-icon></v-btn>
 
           </v-toolbar-items>
-          <v-toolbar-side-icon size="$vuetify.breakpoint.mdAndUp ? '45' : '24'" @click.stop="toggleNav()"></v-toolbar-side-icon>
+              <v-toolbar-side-icon size="$vuetify.breakpoint.mdAndUp ? '45' : '24'" @click.stop="toggleNav()">
+              </v-toolbar-side-icon>
     </v-toolbar>
 </template>
 
@@ -42,6 +42,7 @@ export default {
     computed:{
         component:{
             get(){
+
                 return this.$store.state.common.toolBar.component
             },
             set(val){
@@ -59,6 +60,8 @@ export default {
 
     mounted () {
             // Update page title.
+            
+
             this.$store.watch((state) => {
               return state.common.toolBar.component
             }, (component) => {

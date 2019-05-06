@@ -238,14 +238,7 @@
                             ></v-carousel-item>
                         </v-carousel>
 
-                         <!-- carousel ends -->
-
-
-                        <!-- <v-card-title class="font-weight-bold">
-                            <h1 class="hash title" id="desc" @click="$vuetify.goTo('#desc',scrollOptions)">
-                                {{ place.category.name }}
-                            </h1>
-                        </v-card-title> -->
+                    
                         <v-card-text>
 
                             <v-expansion-panel width="100%">
@@ -256,7 +249,7 @@
                             <template v-slot:header>
 
                               <span style="letter-spacing: 2px; font-size:18px" class="grey--text font-weight-medium text-capitalize ">
-                                  <h1 class="hash title" id="desc" @click="$vuetify.goTo('#desc',scrollOptions)">
+                                  <h1 class="hash title" >
                                     {{ place.category.name }}
                                  </h1>
                               </span>
@@ -280,22 +273,9 @@
                             </v-card>
                           </v-expansion-panel-content>
                         </v-expansion-panel>
-<!-- 
-                           <p>{{ place.description }}</p> -->
+
                         </v-card-text>
-                        <!--  <v-card-title class="font-weight-bold">
-                            <h4 class="hash title">
-                                Location
-                            </h4>
-                        </v-card-title>
-                        <v-card-text>
-                        
-                            <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(place.address,place.location,place.state,place.country) | insertBreaks">
-                             
-                            </p>
-                        
-                        </v-card-text> 
- -->
+      
                          <v-card-text>
                             <v-expansion-panel width="100%">
                           <v-expansion-panel-content>
@@ -320,12 +300,7 @@
                           </v-expansion-panel-content>
                         </v-expansion-panel>
                          </v-card-text>
-                         <!-- <v-card-title class="font-weight-bold" id="spec">
-                            <h1 class="hash title" @click="$vuetify.goTo('#spec',scrollOptions)">
-                                Details
-                            </h1>
-                        </v-card-title>
- -->
+   
                            <v-card-text>
                             <v-expansion-panel width="100%">
                           <v-expansion-panel-content>
@@ -335,7 +310,7 @@
                             <template v-slot:header>
 
                               <span style="letter-spacing: 2px; font-size:18px" class="grey--text font-weight-medium text-capitalize ">
-                                  <h1 class="hash title" @click="$vuetify.goTo('#spec',scrollOptions)">
+                                  <h1 class="hash title">
                                 Details
                                   </h1>
                               </span>
@@ -376,44 +351,6 @@
                         </v-expansion-panel>
 
                          </v-card-text>
-                        <!-- <v-card-text>
-                          <v-container grid-list-xs class="pb-5" >
-                              <v-layout 
-                              row 
-                              wrap 
-                              v-for="(feature,index) in place.features.features" 
-                              :key="index"
-                              :index="index"
-                              fill-height
-                               >
-                                <v-flex xs4 fill-height>
-                                    <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word"> 
-                                        {{ feature.feature }}
-                                    </div>
-                                    
-                                </v-flex>
-                                <v-flex xs8 fill-height> 
-                                    <div style="height:auto" class="d-block pa-2 grey lighten-4">
-                                         {{ feature.value }}
-                                    </div>
-
-                                </v-flex>
-                                
-                              </v-layout>
-                              
-                          </v-container>
-                          <v-divider></v-divider>       
-                                  
-                        </v-card-text>  -->
-
-                        <!-- <v-card-title class="font-weight-bold" id="price">
-                            <h2 class="hash" @click="$vuetify.goTo('#price',scrollOptions)">
-                               Price: {{ place.price | currency }}
-                            </h2>
-                        </v-card-title>
-                             <v-card-text class="">
-                               <p>{{ place.price_description }}</p>
-                             </v-card-text> -->
                         
                         <v-card-text>
                             <v-expansion-panel width="100%">
@@ -424,7 +361,7 @@
                             <template v-slot:header>
 
                               <span style="letter-spacing: 2px; font-size:18px" class="grey--text font-weight-medium text-capitalize ">
-                                  <h2 class="hash title" @click="$vuetify.goTo('#price',scrollOptions)">
+                                  <h2 class="hash title" >
                                                Price: {{ place.price | currency }}
                                     </h2>
                               </span>

@@ -328,22 +328,22 @@ import axios from 'axios'
     
     retrievePlaces({state,commit,getters})
     {   
-        console.log("about to load list")
+        
         commit('changeMode','all')
         const userCoords = state.userCoordinates !== null ? true : false
          let Query = ""
         if(userCoords){
           Query = "?pref_cords=" + getters.userPreferences.pref_cords
         }
-       console.log("got to here")
+      
         if(!getters.hasLoadedPLaces)
         {  
-            console.log("places not lloaded")
-            console.log(API.PLACES_URL.concat(Query))
+            
+           
             return new Promise( (resolve,reject) =>{
               axios.get(API.PLACES_URL.concat(Query))
                 .then(function (response) {
-                      console.log("loaded list")
+                    
                  commit('updateNextPage',response.data.next_page_url)
                    response.data.data.forEach((place) => {
                            commit('addPlace',place)

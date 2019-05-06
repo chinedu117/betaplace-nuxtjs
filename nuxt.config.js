@@ -55,6 +55,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
@@ -62,6 +63,13 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
+  
+   /*
+    ** Environement variables
+    */
+    env: {
+     
+    }, 
 
   /*
   ** Build configuration
@@ -75,21 +83,7 @@ module.exports = {
       }
     },
 
-    /*
-    ** Environement variables
-    */
-    env: {
-      ROOT_URL: '"http://localhost:3000"',
-      ROOT_API: '"http://betaplace.test/api"',
-      GOOGLE_CLIENT_ID: '"41873985302-224fgf0n2hk74ejp413fk01fca5a07s0.apps.googleusercontent.com"',
-      GOOGLE_CALLBACK_URL: '"http://localhost:3000/login/google/callback"',
-      FACEBOOK_CLIENT_ID: '"838567409811629"',
-      FACEBOOK_CALLBACK_URL: '"http://localhost:3000/login/facebook/callback"',
-      PAYSTACK_PUBLIC_KEY: '" pk_test_22bdd340817a7abd23c1ade4fb5f131c60be3e7f"',
-      CONTACT_EMAIL: '"contact@betaplace.com.ng"',
-      PHONE_NUMBER_HELP_TWO: '"09929994949"',
-      PHONE_NUMBER_HELP_ONE: '"009593942949"'
-    },
+   
 
     /*
     ** You can extend webpack config here

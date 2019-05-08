@@ -476,7 +476,7 @@ export default {
         }
     },
 
-    async asyncData({store, params}){
+    async fetch({store, params}){
         
          var catResponse =  await store.dispatch('dashboard_store/getCategoryList')
          var category = catResponse.data
@@ -487,13 +487,13 @@ export default {
          if(params.placeSlug){
             
             var  { data } = await store.dispatch('dashboard_store/retrievePlace',params.placeSlug)
-             console.log(data.images)
+             console.log(data)
            
-                if(data.features !== null)
+            if(data.features !== null)
                 {
                    features = data.features.features
                 }
- 
+
                 if(data.images !== null)
                 {
                   images = data.images.images
@@ -505,12 +505,12 @@ export default {
                 
 
           } 
-          
+
           return  { 
-                    images : images,
-                    features : features,
-                    newPlace : place,
-                    category: category
+                    "images" : images,
+                    "features" : features,
+                    "newPlace" : place,
+                    "category": category
                     }
             
     },

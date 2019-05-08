@@ -2,6 +2,7 @@
  <v-container grid-list-md text-xs-center class="page-wrapper">
  	<v-layout row wrap>
  	   <v-flex xs12>
+
 	 		<v-card>
 			 		<v-toolbar flat>
 			 			<v-toolbar-side-icon/>
@@ -161,10 +162,18 @@
 		  },
 
 		redirectAfterLogin(social = false){
+           let slug = ''
+           let hasProfile = false
+           let hasVerifiedEmail = false
+
+           if(this.$store.getters['auth/getUser']){
+
+                   slug = this.$store.getters['auth/getUser'].slug
+                   hasProfile = this.$store.getters['auth/userHasProfile']
+                   hasVerifiedEmail = this.$store.getters['auth/userEmailVerified']
+
+           }
            
-           const slug = this.$store.getters['auth/getUser'].slug
-           const hasProfile = this.$store.getters['auth/userHasProfile']
-           const hasVerifiedEmail = this.$store.getters['auth/userEmailVerified']
 
            // console.log(slug,hasProfile,hasVerifiedEmail)
 			if(!social){

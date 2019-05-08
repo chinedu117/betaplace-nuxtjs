@@ -38,7 +38,7 @@ import UploadsImage from '@/utils/UploadsImage'
 import HandleRequest from '@/utils/RequestHandler'
 import AgentInfo from '@/components/places_list/AgentInfo'
 export default {
-  middleware: 'authenticated,has-profile',
+  middleware: ['authenticated','has-profile'],
   layout: 'dashboard',
   data() {
       return {

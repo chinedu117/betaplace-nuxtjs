@@ -2,7 +2,7 @@ const pkg = require('./package')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',//'universal',
 
   /*
   ** Headers of the page
@@ -40,11 +40,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/app',
-    { src: '~/plugins/http', ssr: true },
+    '~/plugins/app.js',
+    '~/plugins/cookie.js',
+    '~/plugins/http.js',
     { src: '~/plugins/app-no-ssr', ssr: false },
     { src: '~/plugins/localStorage.js', ssr: false }
-
     
   ],
 
@@ -56,6 +56,7 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
+    'cookie-universal-nuxt',
   ],
   /*
   ** Axios module configuration

@@ -257,23 +257,20 @@ import Flags from "@/components/dashboard/Flags"
 
 
 export default {
-    middleware: 'authenticated,has-profile',
+    middleware: ['authenticated','has-profile'],
     layout: 'dashboard',
   
 
    components: { PlaceActions, Flags},
 
    mixins: [HandlesRequest],
-
+  
    
-   fetch({store,params}){
+   async fetch({store,params}){
         //load places
-       store.dispatch("dashboard_store/retrieveAgentPlacesList",{agent_slug: params.agentSlug})
-      .then(response =>{
-                 return store.dispatch("dashboard_store/retrieveMySubscriptions")
+        await store.dispatch("dashboard_store/retrieveAgentPlacesList")
+        await store.dispatch("dashboard_store/retrieveMySubscriptions")
                         
-           })
- 
    },
    computed:{
      card_style(){
@@ -307,17 +304,22 @@ export default {
        },
        places(){
            return this.$store.getters['dashboard_store/places']
+       },
+       agent(){
+            return this.$store.getters['auth/getUser']
        }
    },
     methods:{
        
         createPlace(){
             //check if the agenet still has enough subscription
-
-            if(this.$store.getters['auth/getUser'].agent_statistics.max_no_places > 0)
+            const agent = this.agent
+            if(agent.agent_statistics.max_no_places > 0)
             { 
-              const agentSlug = this.$route.params.agentSlug 
-              this.$router.push({path: `/dashboard/${agentSlug}/placeSlug` })
+
+              const agentSlug = agent.slug 
+              this.$router.push({name: 'dashboard-agentSlug-placeSlug', params: { agentSlug} })
+
             }else{
 
               this.$store.dispatch('common/updateSnackBar',{
@@ -332,7 +334,7 @@ export default {
         },
 
         editPlace(placeSlug){
-            const agentSlug = this.$route.params.agentSlug 
+            const agentSlug = this.agent.slug
 
             this.$router.push({path: `/dashboard/${agentSlug}/${placeSlug}` })
         },

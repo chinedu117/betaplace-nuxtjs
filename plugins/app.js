@@ -2,7 +2,13 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import colors from 'vuetify/es5/util/colors'
 import VueCurrencyFilter from 'vue-currency-filter'
+import veeValidate from 'vee-validate'
 
+// import VueCookie from 'vue-cookie'
+
+
+// Vue.use(VueCookie)
+Vue.use(veeValidate)
 
 Vue.use(VueCurrencyFilter,
   {
@@ -14,7 +20,7 @@ Vue.use(VueCurrencyFilter,
     symbolSpacing: true
   })
 
-require('vue2-animate/dist/vue2-animate.min.css')
+// require('vue2-animate/dist/vue2-animate.min.css')
 
 
 Vue.use(Vuetify, {

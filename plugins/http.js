@@ -4,7 +4,7 @@ import Vue from 'vue'
 Vue.prototype.$http = Vue.http = axios.create()
 
 
-export default ({ $axios, store }) => {
+export default ({store}) => {
  
   // if (process.server) {
   //   return

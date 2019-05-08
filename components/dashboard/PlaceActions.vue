@@ -17,7 +17,7 @@
            </v-btn>
         </template>
         <v-list>
-              <v-list-tile  @click="visitPlace($router.params.agentSlug,slug)">
+              <v-list-tile  @click="visitPlace(agentSlug,slug)">
                   <v-list-tile-action>
                       <v-icon>visibility</v-icon>
                   </v-list-tile-action>
@@ -59,7 +59,7 @@
 
             <v-btn small dark @click="edit" color="green darken-2"><v-icon>edit</v-icon>EDIT</v-btn>
             
-            <v-btn small  @click="visitPlace($router.params.agentSlug,slug)"><v-icon color="blue darken-2">visibility</v-icon>VIEW</v-btn>
+            <v-btn small  @click="visitPlace(agentSlug,slug)"><v-icon color="blue darken-2">visibility</v-icon>VIEW</v-btn>
       </div>
   </div>
   
@@ -75,6 +75,12 @@ export default {
             place_expired: this.expired
             // slug:3,
         }
+    },
+
+    computed: {
+       agentSlug(){
+           return this.$store.getters['auth/getUser'].slug
+       }
     },
     mixins: [ HandlesRequest ],
     props:{
@@ -93,7 +99,8 @@ export default {
           required: true,
           // type: Number,
 
-      }
+      },
+
     },
     methods: {
         publish(){

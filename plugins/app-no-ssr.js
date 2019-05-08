@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueGeolocation from 'vue-browser-geolocation' 
-import veeValidate from 'vee-validate'
-import VueCookie from 'vue-cookie'
 import  SocialSharing from 'vue-social-sharing'
 import VueSocialauth from 'vue-social-auth'
 import ReadMore from 'vue-read-more'
@@ -24,6 +22,5 @@ Vue.use(VueSocialauth, {
 })
 
 Vue.use(SocialSharing)
-Vue.use(veeValidate)
-Vue.use(VueCookie)
+
 Vue.use(VueGeolocation)

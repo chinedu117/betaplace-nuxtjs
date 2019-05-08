@@ -1,6 +1,6 @@
 <template>
      <v-layout row>
-         <v-flex  xs12 v-if="plan">
+         <v-flex  xs12 >
                 
                <v-card :width="$vuetify.breakpoint.mdAndUp ? '700px' : 'auto' " class="mx-auto" style="border-radius: 5px; margin-top: 20px !important;">
                         <!-- header -->
@@ -39,19 +39,21 @@
                         </v-card-text>
                         <v-card-actions>
                            <div class="pricing-action mx-auto">
-                               <paystack
-                                  :metadata="paystackMetaData"
-                                  :amount="plan.price * 100"
-                                  :email="agentEmail"
-                                  :paystackkey="paystackkey"
-                                  :reference="reference"
-                                  :callback="callback"
-                                  :close="close"
-                                  :embed="false"
-                               >
-                              <i class="fas fa-money-bill-alt"></i>
-                                 <v-btn class="btn-color-action" color="white" :loading="loading" flat :disabled="loading"  @click="loading = true">BUY</v-btn>
-                              </paystack>
+                            <no-ssr>
+                                 <paystack
+                                    :metadata="paystackMetaData"
+                                    :amount="plan.price * 100"
+                                    :email="agentEmail"
+                                    :paystackkey="paystackkey"
+                                    :reference="reference"
+                                    :callback="callback"
+                                    :close="close"
+                                    :embed="false"
+                                 >
+                                <i class="fas fa-money-bill-alt"></i>
+                                   <v-btn class="btn-color-action" color="white" :loading="loading" flat :disabled="loading"  @click="loading = true">BUY</v-btn>
+                                </paystack>
+                            </no-ssr>
                          </div>
 
                         </v-card-actions>
@@ -68,14 +70,14 @@
 import paystack from 'vue-paystack'
 export default {
 
-middleware: 'authenticated,has-profile',
+middleware: ['authenticated','has-profile'],
 layout: 'dashboard',
 components: {
         paystack
     },
  data(){
      return {
-         plan:null,
+         // plan:null,
          paystackkey: process.env.PAYSTACK_PUBLIC_KEY, //paystack public key
          loading: false
 
@@ -105,9 +107,14 @@ components: {
           return this.$store.getters["auth/getUser"].email
       }
     },
- created(){
-    this.getPlan(this.$route.params.packageID)
- },
+
+   async fetch({store,params}){
+         let plan = ''
+         let { data } = await store.dispatch('dashboard_store/retrievePlan',params.packageID)
+
+          return {plan : data}
+          
+   },
 
   methods:{
     // placeOrder(){
@@ -142,7 +149,7 @@ components: {
                     })
                     
                  }
-                 this.$router.push({name: "ourPackages"})
+                 this.$router.push({path: "/pricing"})
             })
             .finally(()=> {
 
@@ -158,7 +165,7 @@ components: {
                 color: ''
                 })
         
-            this.$router.push({ name: "OurPackages"})
+            this.$router.push({path: "/pricing"})
         }
         //if succcessful
             //confirm payment

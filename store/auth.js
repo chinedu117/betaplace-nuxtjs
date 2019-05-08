@@ -4,7 +4,7 @@ import * as API from '@/api'
 
    export const state = () => {
      return {
-        token: null, //localStorage.getItem('access_token') || null,
+        token: null, //JSON.parse(localStorage.getItem('betaplace')).auth.token || null,
         user: null, //Object.assign({},JSON.parse(localStorage.getItem('user'))) || null
      }
         
@@ -23,7 +23,7 @@ import * as API from '@/api'
 
           clearUser(state){
             state.user = ""
-            localStorage.removeItem('user')
+            // localStorage.removeItem('user')
           },
       
         //set token in the local storage after successfull log in 
@@ -31,6 +31,11 @@ import * as API from '@/api'
                
               const access_token  = 'Bearer ' + token
                state.token = access_token
+               this.$cookies.set('x-access-token',access_token,{
+                                      path: '/',
+                                      maxAge: 60 * 60 * 24 * 7
+                                    })
+               // this.$cookies.set('x-access-token', access_token, 60 * 60 * 24 * 30)
       
               // localStorage.setItem('access_token',access_token)
           },
@@ -42,6 +47,7 @@ import * as API from '@/api'
               state.token = null
               //localStorage.removeItem('user')
               state.user = null
+              this.$cookies.remove('x-access-token')
           }
           
     }
@@ -57,248 +63,146 @@ import * as API from '@/api'
             return state.user ? state.user.has_profile === true : false
         },
         getUser(state) {
-            
-            return state.user //== null ? Object.assign({},JSON.parse(localStorage.getItem('user'))) : state.user
+            const betaplace = JSON.parse(localStorage.getItem('betaplace'))
+            return state.user == null ? betaplace.auth.user : state.user
         },
         getToken(state) {
-            
-            return state.token //== null ?  localStorage.getItem('access_token') : state.token
+             // const token = this.$cookies.get('x-access-token')
+             const betaplace = JSON.parse(localStorage.getItem('betaplace'))
+
+            return state.token == null ?  betaplace.auth.token : state.token
         },
         loggedIn(state) {
-
-            return state.token != null
+            
+           // const betaplace = JSON.parse(localStorage.getItem('betaplace'))
+            // console.log(betaplace.auth.token)
+            return !!state.token //!= null //|| betaplace.auth.token != null
         }
 
 
     }
   
     export const actions = {
-    //   clear ({ state, commit, rootState, dispatch }) {
-    //     commit('clear')
-    //     dispatch('auth/clear', {}, { root: true })
-    //   },
-    //
-    uploadProfileImage({getters},formData){
+    
+    async uploadProfileImage({getters},formData){
         
         axios.defaults.headers.common['Authorization'] = getters.getToken
-          
-        return new Promise((resolve,reject) => {
-  
-            axios.post(API.AGENT_PROFILE_IMAGE_UPLOAD_URL,formData)
-                .then(function (response) {
-                 
-                 resolve(response)
-                  })
-                .catch(function (error) {
-                     reject(error)
-                 })
-                })
+        
+           await axios.post(API.AGENT_PROFILE_IMAGE_UPLOAD_URL,formData)
+              
     },
          
-    retrieveUser({state, commit, getters}) {
+   async  retrieveUser({state, commit, getters}) {
 
-        axios.defaults.headers.common['Authorization'] = getters.getToken
-          
-        return new Promise((resolve,reject) => {
-  
-            axios.get(API.USER_INFO_URL)
-                .then(function (response) {
-                  
-                 // console.log(response.data)
-                  //save the token to local storage
-                 // console.log(response.data)
-                 commit('saveUser', response.data)
-                 resolve(response)
-                  })
-                .catch(function (error) {
-  
-                     // console.log(error)
-                     reject(error)
-                 })
-  
-          })
+        axios.defaults.headers.common['Authorization'] =  getters.getToken
+        try {
+
+         const  { data } = await axios.get(API.USER_INFO_URL)      
+           await  commit('saveUser', data)
+        }catch(e){
+           console.log("unable to retrieve user info")
+        }
+              
       },
   
-      logout({state, commit, getters}) {
+   async  logout({state, commit, getters}) {
         
         
         axios.defaults.headers.common['Authorization'] = getters.getToken
   
         if(getters.loggedIn){
-  
-          return new Promise( (resolve,reject) => {
-            axios.post(API.LOGOUT_URL)
-                .then((response) => {
-  
-                  //clear tkoen from the local storage and the state
-                   commit('clearToken')
-                  //console.log(response)
+             try {
+                   await axios.post(API.LOGOUT_URL)
                   
-                 
-                 resolve(response)
-                  })
-                .catch((error)=> {
-                     
-                    commit('clearToken')
-                     // console.log(error)
-                     reject(error)
-                 })
-          
-  
-        })
+                     commit('clearToken')
+                     commit('clearUser')
+               }catch(e){
+                      commit('clearToken')
+                      commit('clearUser')
+               }
   
         }
         
         
       },
   
-      register({state, commit},params) {
+      async register({state, commit},params) {
   
           //console.log(params)
           // console.log('auth store register callled');
           
-          return new Promise((resolve,reject) => {
-             
-             //clear any user saved
-             commit('clearUser')
-            axios.post(API.REGISTER_URL,{
-                       'name': params.name,
-                       'password': params.password,
-                       'email': params.email,
-                       'password_confirmation': params.password_confirmation
-                       }) 
-                .then(function (response) {
-                   
-                 // console.log(response)
-                  //save the token to local storage
-                //  context.commit('saveToken',response.data.access_token)
-                   commit('saveUser',response.data)
-                 resolve(response)
-                  })
-                .catch(function (error) {
-  
-                     //console.log(error)
-                     reject(error)
-                 })
-  
-          })
-  
-      },
-  
-      login({state, commit}, credentials) {
           
-          
-          return new Promise((resolve,reject) => {
-  
-            axios.post(API.LOGIN_URL,{
-                       'username': credentials.username,
-                       'password': credentials.password
-                       })
-                .then(function (response) {
+              await commit('clearUser')
+              const { data } = await  axios.post(API.REGISTER_URL,{
+                         'name': params.name,
+                         'password': params.password,
+                         'email': params.email,
+                         'password_confirmation': params.password_confirmation
+                         }) 
                   
-                  /// console.log(response)
-                  //save the token to local storage
-                 commit('saveToken',response.data.access_token)
+               commit('saveUser',data)
+                
+  
+      },
+  
+     async login({state, commit}, credentials) {
+          
+         const { data } = await axios.post(API.LOGIN_URL,{
+                               'username': credentials.username,
+                               'password': credentials.password
+                               })
+
+          await commit('saveToken',data.access_token)
            
-                 resolve(response)
-                  })
-                .catch(function (error) {
-  
-                     // console.log(error)
-                     reject(error)
-                 })
-  
-          })
+          
           
   
       },
-      socialLogin({state, commit},payload){
-            return new Promise((resolve,reject) => {
-  
-            axios.post(API.SOCIAL_LOGIN_URL(payload.provider),payload)
-                .then(function (response) {
-                 commit('saveToken',response.data.access_token)
-                 resolve(response)
-                  })
-                .catch(function (error) {
-  
-                     // console.log(error)
-                     reject(error)
-                 })
-  
-          })
+      async socialLogin({state, commit},payload){
+            
+           const { data } =  await axios.post(API.SOCIAL_LOGIN_URL(payload.provider),payload)
+
+             commit('saveToken',data.access_token)
+                
       },
 
       
-      submitProfile({getters,dispatch},profile){
+      async submitProfile({getters,dispatch},profile){
 
         axios.defaults.headers.common['Authorization'] = getters.getToken
-
-          return new Promise( (resolve,reject) => {
-            axios.post(API.SUBMIT_PROFILE_URL,profile)
-                .then((response) => {
-                  dispatch("retrieveUser")
-                 resolve(response)
-                  })
-                .catch((error)=> {
-                     reject(error)
-                 })
-        })
+       
+        await axios.post(API.SUBMIT_PROFILE_URL,profile)
+                
+        await dispatch("retrieveUser")
+               
       
     },
       
-      getMyProfile({getters}){
+      async getMyProfile({getters}){
         axios.defaults.headers.common['Authorization'] = getters.getToken
-          return new Promise( (resolve,reject) => {
-            axios.get(API.GET_MY_PROFILE_URL)
-                .then((response) => {
-                 resolve(response)
-                  })
-                .catch((error)=> {
-                     reject(error)
-                 })
-          
-  
-        })
+         
+           await  axios.get(API.GET_MY_PROFILE_URL)
+       
       
       },
 
-      resendVerificationMail({getters}){
+   async resendVerificationMail({getters}){
 
          if(!getters.getUser.email) return
-         return new Promise( (resolve,reject) => {
-            axios.post(API.RESEND_VERIFICATION_MAIL_URL,{el:getters.getUser.email})
-                .then((response) => {
-                 resolve(response)
-                  })
-                .catch((error)=> {
-                     reject(error)
-                 })
-      })
+        
+          await axios.post(API.RESEND_VERIFICATION_MAIL_URL,{el:getters.getUser.email})
+                
     },
 
-    forgotPassword({getters},payload){
-        return new Promise( (resolve,reject) => {
-            axios.post(API.FORGOT_PASSWORD_URL,payload)
-                .then((response) => {
-                 resolve(response)
-                  })
-                .catch((error)=> {
-                     reject(error)
-                 })
-      })
+   async forgotPassword({getters},payload){
+          await  axios.post(API.FORGOT_PASSWORD_URL,payload)
+    
     },
 
-    resetPassword({getters},payload){
-        return new Promise( (resolve,reject) => {
-            axios.post(API.RESET_PASSWORD_URL,payload)
-                .then((response) => {
-                 resolve(response)
-                  })
-                .catch((error)=> {
-                     reject(error)
-                 })
-      })
+    async resetPassword({getters},payload){
+      
+           await axios.post(API.RESET_PASSWORD_URL,payload)
+         
     },
 
 

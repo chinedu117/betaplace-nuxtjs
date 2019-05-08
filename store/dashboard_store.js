@@ -52,11 +52,13 @@ export const getters = {
             let index = state.places.findIndex((place) =>{
                   return place.slug == slug
              })
-              let place = state.places[index]
+              // let place = state.places[index]
 
             state.places.splice(index,1)
 
         },
+
+
       publishPlace(state,slug){
 
              let index = state.places.findIndex((place) =>{
@@ -127,314 +129,160 @@ export const getters = {
 
 export const actions = {
     
-    retrievePlace({commit},placeSlug){
-
-       axios.defaults.withCredentials = true
-            return new Promise( (resolve,reject) =>{
-          // console.log(API.PLACE_URL(placeSlug))
-              Vue.http.get(API.DASHBORD_PLACE_RETRIEVE_URL(placeSlug))
-              .then(function (response) {
-                         
-                      resolve(response)
-                  })
-              .catch(function (error) {
-                  //  console.log(error)
-                       reject(error)
-              });
-
-
-             })
-
-    },
-    retrieveMySubscriptions({commit,state}){
-        if(!state.hasLoadedSubscriptions){
-            return new Promise( (resolve,reject) =>{
+   async retrievePlace({commit},placeSlug){
+   
+        return Vue.http.get(API.DASHBORD_PLACE_RETRIEVE_URL(placeSlug))
      
-                Vue.http.get(API.MY_SUBSCRIPTIONS_URL)
-                 .then(function (response) {
-
-                         response.data.forEach((subscription) =>{
+    },
+   async  retrieveMySubscriptions({commit,state}){
+        if(!state.hasLoadedSubscriptions){
+           
+     
+              const {data} = await Vue.http.get(API.MY_SUBSCRIPTIONS_URL)
+                    
+                     data.forEach((subscription) =>{
                            commit("addSubscription",subscription)
                            
                        })
                          state.hasLoadedSubscriptions = true
-                         resolve(response)
-                     })
-                 .catch(function (error) {
-                     //  console.log(error)
-                          reject(error)
-                 })
-     
-     
-             })
+                       
         }
 
     },
-    retrieveAgentPlacesList({commit,state},payload) {
+    async retrieveAgentPlacesList({commit,state},payload) {
          if(!state.hasLoadedPlaces){
-            return new Promise((resolve,reject) =>{
-                  Vue.http.get(API.AGENT_PLACES_URL,{params:payload})
-                      .then(response => {
+          
+               const {data} =   await Vue.http.get(API.AGENT_PLACES_URL)
+                     
 
-                        response.data.forEach((place) =>{
+                        data.forEach((place) =>{
                            commit("addPlace",place)
                        })
                         state.hasLoadedPlaces = true
-                        resolve(response)
                         
-                      })
-                    .catch((error) => {
-
-                        reject(error)
-                    })
-            })
         }
    }, 
     //Payment
-    confirmPayment({commit},transactionRef){
+    async confirmPayment({commit},transactionRef){
 
-        return new Promise( (resolve,reject) =>{
-
-            Vue.http.post(API.PAYSTACK_CONFIRM_URL,{transaction_ref: transactionRef})
-             .then(function (response) {
-                     resolve(response)
-                 })
-             .catch(function (error) {
-                 //  console.log(error)
-                      reject(error)
-             });
- 
- 
-         })
+          return await  Vue.http.post(API.PAYSTACK_CONFIRM_URL,{transaction_ref: transactionRef})
+             
 
     },
     cancelOrder({commit}){
 
     },
-    retrievePlans({commit,state}){
+
+    async retrievePlans({commit,state}){
        
         if(!state.hasLoadedPlans){
-            return new Promise( (resolve,reject) =>{
-                Vue.http.get(API.PACKAGES_URL)
-                 .then(function (response) {
-                       
-                       response.data.forEach((plan) =>{
+             
+              const {data } = await Vue.http.get(API.PACKAGES_URL)
+                data.forEach((plan) =>{
                            commit("addPlan",plan)
 
                        })
-                       state.hasLoadedPlans = true
-                        resolve(response)
-                     })
-                   
-                 
-                 .catch(function (error) {
-                     //  console.log(error)
-                          reject(error)
-                 });
-     
-     
-             })
-        }
+              state.hasLoadedPlans = true
+           
+              
+            
+            }
+                    
         
     },
 
-    retrievePlan({commit},planID){
-       
-        // if(state.planList.lenght < 1){
-            return new Promise( (resolve,reject) =>{
-                Vue.http.get(API.PACKAGE_URL(planID))
-                 .then(function (response) {
-
-                         resolve(response)
-                     })
-                 
-                 .catch(function (error) {
-                     //  console.log(error)
-                          reject(error)
-                 });
-     
-     
-             })
-        // }
+    async retrievePlan({commit},planID){
+    
+          return await  Vue.http.get(API.PACKAGE_URL(planID))
+                
         
     },
     //PLACE ACTIONS
-     publishPlace({commit},payload){
+    async  publishPlace({commit},payload){
        
-        // if(state.planList.lenght < 1){
-            return new Promise( (resolve,reject) =>{
-                Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_PUBLISH_URL(payload.place_slug))
-                 .then(function (response) {
-                          commit("publishPlace",payload.place_slug)
-                         resolve(response)
-                     })
+  
+           let result = await Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_PUBLISH_URL(payload.place_slug))
                  
-                 .catch(function (error) {
-                     //  console.log(error)
-                          reject(error)
-                 });
-     
-     
-             })
-        // }
+              await commit("publishPlace",payload.place_slug)
+           return result             
         
     },
 
-    unpublishPlace({commit},payload){
+
+
+
+    async unpublishPlace({commit},payload){
         // if(state.planList.lenght < 1){
-            return new Promise( (resolve,reject) =>{
-                Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL(payload.place_slug))
-                 .then(function (response) {
-                         commit("unpublishPlace",payload.place_slug)
-                         resolve(response)
-                     })
+            
+            let result =   await Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL(payload.place_slug))
                  
-                 .catch(function (error) {
-                     //  console.log(error)
-                          reject(error)
-                 })
-     
-     
-             })
-        // }
+                      await   commit("unpublishPlace",payload.place_slug)
+             return result           
         
     },
 
-    renewPlace({commit},payload){
-          return new Promise((resolve,reject) =>{
-               Vue.http.post(API.DASHBOARD_PLACE_RENEW_URL(payload.place_slug))
-                  .then(response => {
-                       // commit("reset","PLACES")
-                       commit("unexpirePlace",payload.place_slug)
-                      resolve(response)
-                  })
-                  .catch((error) => {
-
-                     reject(error)
-                  })
-          })
+   async renewPlace({commit},payload){
+        
+               let result =   await Vue.http.post(API.DASHBOARD_PLACE_RENEW_URL(payload.place_slug))
+     
+                     await commit("unexpirePlace",payload.place_slug)
+                return result
     },
 
-    removeImage({commit},payload){
+   async  removeImage({commit},payload){
 
-        return new Promise((resolve, reject) => {
-            Vue.http.post(API.DASHBORD_PLACE_IMAGE_REMOVE_URL(payload.get('place_slug')),payload)
-              .then(response => {
-                 
-                resolve(response)
-            })
-            .catch((error) => {
-
-               reject(error)
-            })
-     
-
-        }) 
+            return await  Vue.http.post(API.DASHBORD_PLACE_IMAGE_REMOVE_URL(payload.get('place_slug')),payload)
+             
   },
-  saveImage({commit},placeSlug,payload){
+  async saveImage({commit},payload){
 
-    return new Promise((resolve, reject) => {
-       Vue.http.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(placeSlug),payload)
-              .then(response => {
-
-                resolve(response)
-            })
-            .catch((error) => {
-
-                reject(error)
-            })
-        })
+    
+    return await Vue.http.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(payload.get('place_slug')),payload)
+       
   },
 
    //api call to create a place
-   saveFeatures({commit},payload){
+ async   saveFeatures({commit},payload){
 
-    return new Promise((resolve, reject) => { 
-               Vue.http.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
-                      .then(response => {
-
-                        resolve(response)
-                    })
-                    .catch((error) => {
-
-                      reject(error)
-                    })
-                })
+            return await  Vue.http.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
+                   
   },
 
   //api call to create a place
-  savePlace({commit,state},payload,editingMode){
-    let url = ''
-    if(editingMode)
-    {
-       url = API.DASHBORD_PLACE_EDIT_URL(payload.slug)
-    }else{
-       url = API.DASHBORD_PLACE_CREATE_URL
-    }
+ async savePlace({commit,state},payload){
+      let url = ''
+      if(payload.editing_mode)
+      {
+         url = API.DASHBORD_PLACE_EDIT_URL(payload.slug)
+      }else{
+         url = API.DASHBORD_PLACE_CREATE_URL
+      }
+      
+              await  Vue.http.post(url,payload)
+              await   commit("reset","PLACES")
 
-    return new Promise((resolve, reject) => {  
-              Vue.http.post(url,payload)
-                      .then(response => {
-
-                         commit("reset","PLACES")
-
-                        resolve(response)
-                    })
-                    .catch((error) => {
-
-                      reject(error)
-                    })
-                })
   },
   
-    getCategoryList({commit}) {
-
-        return new Promise((resolve, reject) => {
-                  Vue.http.get(API.PLACE_CATEGORY_LIST_URL)
-                    .then(response => {
-
-                        resolve(response)
-                    })
-                    .catch((error) => {
-
-                        reject(error)
-                    })
-                })
-     
+   async  getCategoryList({commit}) {
+        
+       
+       return await  Vue.http.get(API.PLACE_CATEGORY_LIST_URL)
+        
   },
 
-  deletePlace({commit},payload){
+ async deletePlace({commit},payload){
 
-          return new Promise((resolve,reject)=>{
-                Vue.http.post(API.AGENT_PLACE_DELETE_URL(payload.place_slug))
-                  .then(response => {
-                       commit("deletePlace",payload.place_slug)
-                      resolve(response)
-                  })
-                  .catch((error) => {
-
-                      reject(error)
-                  })
-
-          })
+     await   Vue.http.post(API.AGENT_PLACE_DELETE_URL(payload.place_slug))
+     await   commit("deletePlace",payload.place_slug)
+                   
              
    },
   
-    publishPlaceToggle({commit},payload){
+    async publishPlaceToggle({commit},payload){
 
-       return new Promise((resolve,reject)=>{
-
-              Vue.http.post(API.DASHBOARD_PLACE_PUBLISH_URL(payload.place_slug))
-              .then(response => {
-
-                  resolve(response)
-              })
-              .catch((error) => {
-
-                  reject(error)
-              })
-          })
-},
+       return await  Vue.http.post(API.DASHBOARD_PLACE_PUBLISH_URL(payload.place_slug))
+            
+  },
 
 }
 

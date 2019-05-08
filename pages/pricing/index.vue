@@ -1,5 +1,5 @@
 <template>
-      <v-layout row v-if="subscriptionList.length > 0">
+      <v-layout row v-if="plans.length > 0">
          <v-flex  xs12>
 
             <div class="clearfix pricing-grid"
@@ -76,7 +76,7 @@
             </div>
           </v-flex> <!-- End template for mobile display -->
          
-      </v-layout>
+      </v-layout> 
 </template>
 
 <script>
@@ -84,12 +84,7 @@
 import HandlesRequest from "@/utils/RequestHandler"
 export default { 
     layout: 'default',
-    data(){
-        return {
-            subscriptionList: [],
-
-        }
-    },
+    
     computed:{
         plans(){
             // return this.subscriptionList
@@ -97,14 +92,16 @@ export default {
         }
     },
 
-    fetch({store}){
+    async fetch({store}){
          
          //load packages
-             
-             store.dispatch("dashboard_store/retrievePlans")
-                                    .then((response) => {
-                                        
-                                   })
+           try{
+
+              await  store.dispatch("dashboard_store/retrievePlans")
+
+             }catch(e){
+                 console.log(e)
+             }              
                
        
     },
@@ -184,7 +181,7 @@ export default {
 
         viewPlan(planID){
          
-            this.$router.push({name: 'PackageView', params:{planID}})
+            this.$router.push({path: `/pricing/${planID}` })
 
         }
     }

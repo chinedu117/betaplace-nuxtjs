@@ -58,16 +58,16 @@
 import HandlesRequest from "@/utils/RequestHandler"
 export default {
 
-middleware: 'authenticated,has-profile',
+middleware: ['authenticated','has-profile'],
 layout: 'dashboard',
 data(){
     return {
         
     }
 },
-fetch({store}){
+async fetch({store}){
 
-    store.dispatch("dashboard_store/retrieveMySubscriptions")
+    await store.dispatch("dashboard_store/retrieveMySubscriptions")
       
 },
 

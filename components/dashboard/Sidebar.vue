@@ -25,7 +25,7 @@
 
             <v-divider></v-divider>
             
-             <v-list-tile avatar to="`/dashboard/${agent_slug}`">
+             <v-list-tile avatar to="/dashboard/">
                 <v-list-tile-avatar>
                     <v-icon>place</v-icon>
                 </v-list-tile-avatar>

@@ -67,9 +67,9 @@ module.exports = {
    /*
     ** Environement variables
     */
-    env: {
+    // env: {
      
-    }, 
+    // }, 
 
   /*
   ** Build configuration

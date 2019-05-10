@@ -29,7 +29,7 @@ export default {
 }
 }
 </script>
-<style scoped>
+<style type="text/css" scoped>
   .nuxt-error {
      display: flex;
      justify-content: center;

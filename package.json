@@ -19,7 +19,6 @@
     "express": "^4.16.4",
     "naija-state-local-government": "^1.1.0",
     "nuxt": "^2.4.0",
-    "time-ago": "^0.2.1",
     "vee-validate": "^2.1.4",
     "vue-browser-geolocation": "^1.5.0",
     "vue-cookies": "^1.5.13",

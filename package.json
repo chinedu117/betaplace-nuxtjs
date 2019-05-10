@@ -1,7 +1,7 @@
 {
-  "name": "betaplace-nuxt",
+  "name": "Betaplace",
   "version": "1.0.0",
-  "description": "My stupendous Nuxt.js project",
+  "description": "Urban Accomodation Solution",
   "author": "chinedu",
   "private": true,
   "scripts": {
@@ -30,12 +30,12 @@
     "vue2-animate": "^2.0.0",
     "vuetify": "^1.5.5",
     "vuetify-loader": "^1.2.1",
-    "vuex-persistedstate": "^2.5.4",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2"
+    "vuex-persistedstate": "^2.5.4"
+    
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
- 
+    "nodemon": "^1.18.9",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
   }
 }

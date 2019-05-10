@@ -41,7 +41,6 @@ module.exports = {
   */
   plugins: [
     '~/plugins/app.js',
-    '~/plugins/cookie.js',
     '~/plugins/http.js',
     { src: '~/plugins/app-no-ssr', ssr: false },
     { src: '~/plugins/localStorage.js', ssr: false }

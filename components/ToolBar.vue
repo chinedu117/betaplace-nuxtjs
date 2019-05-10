@@ -5,12 +5,12 @@
         <!-- <v-toolbar-title>{{ $store.state.common.title }}</v-toolbar-title> --> 
         <v-spacer></v-spacer>
         <v-toolbar-items>
-            <no-ssr placeholder="Loading...">
+           
             <component :is="component" class="d-flex justify-space-around align-center mt-1">
                 <slot></slot>
                 
             </component>
-           </no-ssr>
+   
             <v-btn class="ma-2" style="height:50%" v-show="!$vuetify.breakpoint.smAndDown" v-if="!loggedIn" to="/agent/login" outline>Become An Agent</v-btn>
            
             

@@ -58,7 +58,7 @@ export default {
                         
                     })  
             
-                    .catch( error => {
+                    .catch( (error) => {
 
                         this.nearMeFilter = false
                         this.$store.dispatch('common/updateSnackBar',{

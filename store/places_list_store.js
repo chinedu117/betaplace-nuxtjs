@@ -498,23 +498,23 @@ import axios from 'axios'
 
     },
 
-    clearSearch({commit}){
+    async learSearch({commit}){
 
-        commit("updateSearchBox",{show:false,found:[],searchText:""})
-        commit('changeMode','all')
+        await commit("updateSearchBox",{show:false,found:[],searchText:""})
+        await commit('changeMode','all')
         
     },
     
-    updateDistance({commit},myLocation)
+    async updateDistance({commit},myLocation)
     {
-        commit('updateDistance',myLocation)
-        commit('addPreferredFilters',{filter_distance: true})
+        await commit('updateDistance',myLocation)
+        await commit('addPreferredFilters',{filter_distance: true})
         
     },
 
-    clearPlaces({commit}){
+    async clearPlaces({commit}){
 
-         commit('setPlaces',[])
+         await commit('setPlaces',[])
     }
     
   }

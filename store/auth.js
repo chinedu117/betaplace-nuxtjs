@@ -88,7 +88,7 @@ import * as API from '@/api'
         
         axios.defaults.headers.common['Authorization'] = getters.getToken
         
-           await axios.post(API.AGENT_PROFILE_IMAGE_UPLOAD_URL,formData)
+           return await axios.post(API.AGENT_PROFILE_IMAGE_UPLOAD_URL,formData)
               
     },
          
@@ -181,7 +181,7 @@ import * as API from '@/api'
       async getMyProfile({getters}){
         axios.defaults.headers.common['Authorization'] = getters.getToken
          
-           await  axios.get(API.GET_MY_PROFILE_URL)
+           return await  axios.get(API.GET_MY_PROFILE_URL)
        
       
       },
@@ -190,18 +190,18 @@ import * as API from '@/api'
 
          if(!getters.getUser.email) return
         
-          await axios.post(API.RESEND_VERIFICATION_MAIL_URL,{el:getters.getUser.email})
+         return  await axios.post(API.RESEND_VERIFICATION_MAIL_URL,{el:getters.getUser.email})
                 
     },
 
    async forgotPassword({getters},payload){
-          await  axios.post(API.FORGOT_PASSWORD_URL,payload)
+          return await  axios.post(API.FORGOT_PASSWORD_URL,payload)
     
     },
 
     async resetPassword({getters},payload){
       
-           await axios.post(API.RESET_PASSWORD_URL,payload)
+           return await axios.post(API.RESET_PASSWORD_URL,payload)
          
     },
 

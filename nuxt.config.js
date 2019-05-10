@@ -2,7 +2,7 @@ const pkg = require('./package')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-  mode: 'spa',//'universal',
+  mode: 'universal',
 
   /*
   ** Headers of the page

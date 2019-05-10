@@ -68,8 +68,8 @@ export default {
   components: { Subscribe, LoadMore, MobileFooter, PlaceListItem},
  
   async fetch({store}){
-        
-        await store.dispatch('places_list_store/retrievePlaces')
+       
+          await store.dispatch('places_list_store/retrievePlaces')
         
     },
 

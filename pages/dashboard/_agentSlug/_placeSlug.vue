@@ -503,15 +503,17 @@ export default {
                 delete data['features']
                 place  = data
                 
-
-          } 
-          
-          return  { 
+                return  { 
                     images : images,
                     features : features,
                     newPlace : place,
                     category: category
                     }
+          } 
+
+             return  {category: category}
+          
+          
             
     },
     computed:{

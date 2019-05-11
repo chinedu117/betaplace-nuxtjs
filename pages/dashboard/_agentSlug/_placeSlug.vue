@@ -308,9 +308,9 @@
                           <v-card-text>
 
 
-                        <v-card 
+                      <v-card 
                         flat 
-                        
+                        v-if="images.length > 0"
                         v-for="(image, index) in images"
                         :key="index"
                         color="grey lighten-2"
@@ -357,7 +357,15 @@
                        </v-card-actions>
                    </v-card>
 
-
+                   
+                     
+                     <div 
+                        v-if="images.length == 0"
+                         class="no-image pt-4 pb-4 mx-auto mt-2 mb-2">
+                         <h3>Upload Image</h3>
+                     
+                     </div>
+           
                          <!-- <img src="http://betaplace.test/storage/place_images/LiKt73H1M3jWgOpA4YSGv4Y8ofQHDf3go5FtxNWA.jpeg" style="max-width:400" /> -->
                         <v-card 
                           v-if="imageUrl"
@@ -406,7 +414,7 @@
 
                                <v-btn color="success" @click.prevent="prevPage">PREVIOUS</v-btn>
 
-                               <v-btn align-end v-if="images.length > 0" color="success" @click="publish">PUBLISH</v-btn>
+                               <v-btn align-end v-if="newPlace.slug" color="success" @click="publish">PUBLISH</v-btn>
 
 
                            </v-card-actions>
@@ -482,7 +490,19 @@ export default {
          var category = catResponse.data
          let images = []   
          let features = []
-         let place = null
+         let place = {place_category_id:'',
+                      description:'',
+                      latitude:'',
+                      longitude:'',
+                      address:'',
+                      state:'',
+                      country: 'Nigeria',
+                      agent_id: params.agentSlug,
+                      price:'',
+                      price_description: '',
+                      location: '',
+                      timezone: 'Africa/Lagos'
+                    }
 
          if(params.placeSlug != 'new'){
             
@@ -503,15 +523,15 @@ export default {
                 delete data['features']
                 place  = data
                 
-                return  { 
+                
+          } 
+
+           return  { 
                     images : images,
                     features : features,
                     newPlace : place,
                     category: category
                     }
-          } 
-
-             return  {category: category}
           
           
             
@@ -680,7 +700,7 @@ export default {
                             .catch(error => {
                                 this.$store.dispatch('common/updateSnackBar',{
                                     show: true,
-                                    msg: error.response.data,
+                                    msg: error.response.data.message,
                                     color: ''
                                 })
                                 
@@ -813,4 +833,19 @@ export default {
     
 }
 </script>
+<style>
+.no-image {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 5px;
+   border-color: grey;
+   border: 10px dashed;
+   width: 80%;
+   font-weight: 700;
+   font-size: 25px;
+   color: grey;
+   background-color: #fff;
 
+}
+</style>

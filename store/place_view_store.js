@@ -17,7 +17,6 @@ function placeFromCache(state,slug){
           }
   
 }
-
 function agentFromCache(state,slug){
        let index = state.agents_cache.findIndex((agent) =>{
              return agent.slug  == slug
@@ -73,6 +72,18 @@ function agentFromCache(state,slug){
 
    export const mutations = {
     addPlace(state,place){
+
+        PLACE_DEFAULT_IMAGE_URL
+        if(place.images == null || (place.images.images.length < 1) ){
+            
+            place.images.images = [   
+                                    { "id": 1,
+                                       "title": "Image not provided",
+                                        "Description": "Betaplace: Accomodation made easy",
+                                        "src": API.PLACE_DEFAULT_IMAGE_URL
+
+                                     }] 
+        }
         state.place = place
          
         state.place_cache.push(place)
@@ -107,11 +118,11 @@ function agentFromCache(state,slug){
 
     },
 
-    retrievePlace({commit,dispatch,state},placeSlug){
+    async retrievePlace({commit,dispatch,state},placeSlug){
        
      //allow it to also send and r eceive cookies
         
-        var fromCache = placeFromCache(state,placeSlug)
+        var fromCache = await placeFromCache(state,placeSlug)
       
 
         if(fromCache !== false){
@@ -121,36 +132,23 @@ function agentFromCache(state,slug){
         } else{
 
             
-            axios.defaults.withCredentials = true
-            return new Promise( (resolve,reject) =>{
-          
+              axios.defaults.withCredentials = true
+            
              
-              axios.get(API.PLACE_URL(placeSlug))
-              .then(function (response) {
-           
-
+              let response = await axios.get(API.PLACE_URL(placeSlug))
+              
                          commit('places_list_store/updateUserPreferences',response.data,{root: true})//{root: true})
                          commit('addPlace',response.data)
                          
                          dispatch("retrieveAgentInfo",response.data.agent.slug)
-                            .then(response => {
-                              dispatch('places_list_store/retrieveByPreferences',null,{root: true})
-                                 resolve(response)
-                            })
+                            
+                        dispatch('places_list_store/retrieveByPreferences',null,{root: true})
+                            
 
                          
                         
                          
-                     
-                  })
-              .catch(function (error) {
-                  //  console.log(error)
-                       reject(error)
-              });
-
-
-             })
-
+                  
 
         }//elseif
        

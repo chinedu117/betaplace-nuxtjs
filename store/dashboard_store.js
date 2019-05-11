@@ -250,7 +250,7 @@ export const actions = {
    //api call to create a place
  async   saveFeatures({commit},payload){
 
-            return await  Vue.http.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
+    return await  Vue.http.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
                    
   },
 
@@ -263,9 +263,9 @@ export const actions = {
       }else{
          url = API.DASHBORD_PLACE_CREATE_URL
       }
-      
-              await  Vue.http.post(url,payload)
-              await   commit("reset","PLACES")
+          commit("reset","PLACES")
+          return await  Vue.http.post(url,payload)
+                
 
   },
   

@@ -94,7 +94,7 @@ module.exports = {
   ** Router 
   */
   router: {
-    base: process.env.DEPLOY_ENV === 'STATIC' ? '/betaplace-nuxt/' : '/'
+    base: process.env.DEPLOY_ENV === 'STATIC' ? '/betaplace-nuxtjs/' : '/'
   },
 
   

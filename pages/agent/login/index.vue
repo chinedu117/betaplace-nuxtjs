@@ -163,44 +163,11 @@
 
 		redirectAfterLogin(social = false){
            let slug = ''
-           let hasProfile = false
-           let hasVerifiedEmail = false
-
-           if(this.$store.getters['auth/getUser']){
-
-                   slug = this.$store.getters['auth/getUser'].slug
-                   hasProfile = this.$store.getters['auth/userHasProfile']
-                   hasVerifiedEmail = this.$store.getters['auth/userEmailVerified']
-
-           }
+           slug = this.$store.getters['auth/getUser'].slug
            
+           this.$router.push({ path: `/dashboard/${slug}`})
 
-           // console.log(slug,hasProfile,hasVerifiedEmail)
-			if(!social){
-				// console.log('Not using social login')
-				if(hasVerifiedEmail){
-				     // console.log('has verified email')
-				        
-					   if(hasProfile){ 
-				             // console.log('has profile ')
-							 
-							this.$router.push({ path: `/dashboard/${slug}`})
-							// console.log('Going to my places ')
-						}else{
-	                        this.$router.push({ path: '/agent/profile/create'})
-						}
-					}else{
-						alert('You did not verify your email address')
-					}
-			}else{
-
-				 if(hasProfile){ 
-							this.$router.push({ path: `/dashboard/${slug}`})
-						}else{
-							
-	                       this.$router.push({ path: '/agent/profile/create'})
-					}
-			}
+           
 		}
 	  }
 	}

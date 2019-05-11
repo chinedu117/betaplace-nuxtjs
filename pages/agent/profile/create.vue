@@ -149,7 +149,7 @@ import HandleRequest from '@/utils/RequestHandler.js'
 import insertBreaksFilter from  '@/utils/InsertBreaksFilter'
 import NaijaStates from 'naija-state-local-government'
 export default {
-  middleware: 'authenticated',
+  middleware: ['authenticated','verified-email'],
   layout: 'dashboard',
   data(){
       return {

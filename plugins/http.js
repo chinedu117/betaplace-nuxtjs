@@ -10,7 +10,7 @@ export default ({store}) => {
   //   return
   // }
 
-
+    // console.log("Token before request" + store.state.auth.token)
     
     if(store.state.auth.token)
     {

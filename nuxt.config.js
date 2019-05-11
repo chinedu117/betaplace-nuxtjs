@@ -84,12 +84,19 @@ module.exports = {
       }
     },
 
-   generate: {
-    routes: [
-      
-    ],
-    fallback:true
+  /*
+  ** Generate location
+  */
+  generate: {
+    dir: 'dist'
   },
+  /*
+  ** Router 
+  */
+  router: {
+    base: process.env.DEPLOY_ENV === 'STATIC' ? '/betaplace-nuxt/' : '/'
+  },
+
   
 
     /*

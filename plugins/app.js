@@ -40,4 +40,4 @@ Vue.use(Vuetify, {
 //   return check
 // }
 
-// Vue.config.productionTip = process.env.NODE_ENV === 'production'
+Vue.config.productionTip = process.env.NODE_ENV === 'production'

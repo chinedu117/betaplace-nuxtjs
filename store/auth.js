@@ -63,14 +63,14 @@ import * as API from '@/api'
             return state.user ? state.user.has_profile === true : false
         },
         getUser(state) {
-            const betaplace = JSON.parse(localStorage.getItem('betaplace'))
-            return state.user == null ? betaplace.auth.user : state.user
+            //const betaplace = JSON.parse(localStorage.getItem('betaplace'))
+            return state.user //== null ? betaplace.auth.user : state.user
         },
         getToken(state) {
              // const token = this.$cookies.get('x-access-token')
-             const betaplace = JSON.parse(localStorage.getItem('betaplace'))
+             //const betaplace = JSON.parse(localStorage.getItem('betaplace'))
 
-            return state.token == null ?  betaplace.auth.token : state.token
+            return state.token //== null ?  betaplace.auth.token : state.token
         },
         loggedIn(state) {
             

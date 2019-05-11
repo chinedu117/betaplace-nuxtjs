@@ -25,7 +25,7 @@
 
             <v-divider></v-divider>
             
-             <v-list-tile avatar to="/dashboard/">
+             <v-list-tile avatar :to="`/dashboard/${agent_slug}`">
                 <v-list-tile-avatar>
                     <v-icon>place</v-icon>
                 </v-list-tile-avatar>
@@ -52,7 +52,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 
-            <v-list-tile v-if="loggedIn" avatar to="`/agent/profile/${agent_slug}`">
+            <v-list-tile v-if="loggedIn" avatar :to="`/agent/profile/${agent_slug}`">
                 <v-list-tile-avatar>
                     <v-icon>person</v-icon>
                 </v-list-tile-avatar>
@@ -71,7 +71,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 
-            <v-list-tile avatar to="/dashboard/subscription-history">
+            <v-list-tile avatar :to="`/dashboard/${agent_slug}/subscription-history`">
                 <v-list-tile-avatar>
                     <v-icon>notes</v-icon>
                 </v-list-tile-avatar>

@@ -21,7 +21,7 @@
             <v-divider></v-divider>
             
            
-            <v-list-tile v-if="loggedIn" avatar to="/dashboard/">
+            <v-list-tile v-if="loggedIn" avatar :to="`/dashboard/${agent_slug}`">
                 <v-list-tile-avatar>
                     <v-icon>dashboard</v-icon>
                 </v-list-tile-avatar>

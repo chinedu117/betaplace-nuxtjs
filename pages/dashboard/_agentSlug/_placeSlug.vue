@@ -484,10 +484,10 @@ export default {
          let features = []
          let place = null
 
-         if(params.placeSlug){
+         if(params.placeSlug != 'new'){
             
             var  { data } = await store.dispatch('dashboard_store/retrievePlace',params.placeSlug)
-             console.log(data.images)
+             // console.log(data.images)
            
                 if(data.features !== null)
                 {

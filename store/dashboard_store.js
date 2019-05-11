@@ -109,18 +109,24 @@ export const getters = {
 
                  case "SUBSCRIPTION":
                     state.hasLoadedSubscriptions = false
+                    state.subscriptions = []
                     break
                  case "PLACES":
                     state.hasLoadedPlaces = false
+                    state.places = []
                     break
                 case "PLANS":
                    state.hasLoadedPlans= false
+                   state.planList = []
                 break
                 
                 default:
                    state.hasLoadedPlans= false
                    state.hasLoadedPlaces = false
                    state.hasLoadedSubscriptions = false
+                   state.subscriptions = []
+                   state.places = []
+                   state.planList = []
                    break
              }
         }

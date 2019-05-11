@@ -12,11 +12,11 @@ export default ({store}) => {
 
 
     
-    if(store.getters['auth/getToken'])
+    if(store.state.auth.token)
     {
       Vue.http.interceptors.request.eject() //clears previoius token
       Vue.http.interceptors.request.use(function(config){
-        const token = store.getters['auth/getToken']
+        const token = store.state.auth.token
         config.headers.Authorization = token ? token : ''
         return config
       })

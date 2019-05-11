@@ -1,5 +1,5 @@
 
-export const baseUrl = process.env.ROOT_API
+export const baseUrl = "http://betaplace.test/api"//process.env.ROOT_API
 
 export const PLACES_URL = baseUrl + '/p'
 

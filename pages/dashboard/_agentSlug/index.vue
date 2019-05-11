@@ -318,7 +318,7 @@ export default {
             { 
 
               const agentSlug = agent.slug 
-              this.$router.push({name: 'dashboard-agentSlug-placeSlug', params: { agentSlug} })
+              this.$router.push({path: `/dashboard/${agentSlug}/new` })
 
             }else{
 

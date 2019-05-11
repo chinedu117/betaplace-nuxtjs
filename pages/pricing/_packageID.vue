@@ -108,11 +108,18 @@ components: {
       }
     },
 
-   async fetch({store,params}){
-         let plan = ''
-         let { data } = await store.dispatch('dashboard_store/retrievePlan',params.packageID)
+   async asynData({store,params, error}){
+          
+          try{
 
-          return {plan : data}
+             let { data } = await store.dispatch('dashboard_store/retrievePlan',params.packageID)
+
+             return {"plan" : data}
+          }catch(e){
+               
+               error({statusCode: 400, message: "Unable to get item"})
+          } 
+         
           
    },
 

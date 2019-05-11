@@ -68,7 +68,8 @@ import * as API from '@/api'
         },
         getToken(state) {
              // const token = this.$cookies.get('x-access-token')
-             //const betaplace = JSON.parse(localStorage.getItem('betaplace'))
+             
+             const betaplace = JSON.parse(localStorage.getItem('betaplace'))
 
             return state.token //== null ?  betaplace.auth.token : state.token
         },

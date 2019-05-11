@@ -280,15 +280,15 @@ import axios from 'axios'
          return false
          
     },
-    refreshPage({commit,dispatch,state}){
+    async refreshPage({commit,dispatch,state}){
            //reload the page
             commit("hasLoadedPlaces",false)
             dispatch("clearPlaces")
          
             dispatch('common/updateLoader',true,{root:true})
-            dispatch('retrievePlaces').then((response) => {
+            await dispatch('retrievePlaces')
             dispatch('common/updateLoader',false,{root: true})
-         })
+         
     },  
     clearUserCoords({commit,dispatch}){
          commit("clearUserCoords")
@@ -498,23 +498,23 @@ import axios from 'axios'
 
     },
 
-    async learSearch({commit}){
+    async clearSearch({commit}){
 
-        await commit("updateSearchBox",{show:false,found:[],searchText:""})
-        await commit('changeMode','all')
+         commit("updateSearchBox",{show:false,found:[],searchText:""})
+         commit('changeMode','all')
         
     },
     
     async updateDistance({commit},myLocation)
     {
-        await commit('updateDistance',myLocation)
-        await commit('addPreferredFilters',{filter_distance: true})
+         commit('updateDistance',myLocation)
+        commit('addPreferredFilters',{filter_distance: true})
         
     },
 
     async clearPlaces({commit}){
 
-         await commit('setPlaces',[])
+          commit('setPlaces',[])
     }
     
   }

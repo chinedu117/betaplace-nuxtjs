@@ -95,7 +95,7 @@
 
        visitPlace(agentSlug,place)
        {
-           console.log(agentSlug,place)
+          
            this.$router.push({path: `/${agentSlug}/${place}`})
        },
     },

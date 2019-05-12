@@ -75,13 +75,13 @@ function agentFromCache(state,slug){
 
         if(place.images == null || (place.images.images.length < 1) ){
             
-            place.images.images = [   
+            place.images = { "images": [   
                                     { "id": 1,
                                        "title": "Image not provided",
                                         "Description": "Betaplace: Accomodation made easy",
                                         "src": API.PLACE_DEFAULT_IMAGE_URL
-
-                                     }] 
+                                          }]  
+                                        } 
         }
         state.place = place
          

@@ -22,8 +22,9 @@
                 <load-more/>
          </div>
 
-          <div class="pa-2 mt-3 mx-auto elevate-2" style="font-size: 20px; width: 80%; border-radius: 3px; background: #dfe1e6 " v-else >
-              Sorry, we do not have the available places from your area. You can tell your friends and agents about us. Thank you (:    
+          <div class="pa-2 mt-3 mx-auto elevate-2 checking-place"  v-else >
+
+              <span>Good house for everyone. A pleasant place to live in. Without stress. </span>    
           </div>
 
          </v-flex>
@@ -93,6 +94,11 @@ export default {
 </script>
 
 <style lang="stylus">
+.checking-place
+  font-size: 20px
+  width: 80%
+  border-radius: 3px
+  background: #dfe1e6
 
 @media screen and (max-width: 1080px)
   .container--mobile

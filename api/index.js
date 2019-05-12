@@ -1,6 +1,6 @@
 
 export const baseUrl = process.env.ROOT_API
-   const publicPath = baseUrl.substr(0,baseUrl.length - 5) 
+   const publicPath = baseUrl.substr(0,baseUrl.length - 3) 
 export const PLACE_DEFAULT_IMAGE_URL = publicPath + "storage/places_images/default.jpeg"
 export const PLACES_URL = baseUrl + '/p'
 

@@ -4,7 +4,7 @@ import Vue from 'vue'
 export const state = () => {
 
   return {
-
+     plan: null,
      planList: [],
      places: [],
      subscriptions:[],
@@ -19,7 +19,9 @@ export const state = () => {
 
 
 export const getters = {
-
+   plan(state){
+        return state.plan
+   },
    planList(state){
        return state.planList
    },
@@ -31,7 +33,7 @@ export const getters = {
    subscriptions(state){
      return state.subscriptions
    },
-
+   
    summary(state,getters,rootState,rootGetters){
       const user = rootGetters['auth/getUser']
      
@@ -47,7 +49,9 @@ export const getters = {
   }
 
   export const mutations = {
-    
+       setPlan(state,plan){
+            state.plan = plan
+       },
       deletePlace(state,slug){
             let index = state.places.findIndex((place) =>{
                   return place.slug == slug
@@ -199,7 +203,8 @@ export const actions = {
 
     async retrievePlan({commit},planID){
     
-          return await  Vue.http.get(API.PACKAGE_URL(planID))
+          const { data } = await  Vue.http.get(API.PACKAGE_URL(planID))
+         await commit("setPlan",data)
                 
         
     },

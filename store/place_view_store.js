@@ -73,7 +73,6 @@ function agentFromCache(state,slug){
    export const mutations = {
     addPlace(state,place){
 
-        PLACE_DEFAULT_IMAGE_URL
         if(place.images == null || (place.images.images.length < 1) ){
             
             place.images.images = [   
@@ -122,7 +121,7 @@ function agentFromCache(state,slug){
        
      //allow it to also send and r eceive cookies
         
-        var fromCache = await placeFromCache(state,placeSlug)
+        var fromCache = placeFromCache(state,placeSlug)
       
 
         if(fromCache !== false){

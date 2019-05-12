@@ -447,9 +447,11 @@ export default {
     },
 
     async fetch({store,params}) {
-                                
+            try{                   
             await store.dispatch('place_view_store/retrievePlace',params.place)
-            
+            } catch(e) {
+                console.log(e)
+            }
 
     },
     components: {

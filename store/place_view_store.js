@@ -156,21 +156,11 @@ function agentFromCache(state,slug){
     },
 
         //api called on like share or goto map
-      statRequest({commit}, payload){
+    async  statRequest({commit}, payload){
         
 
-        return new Promise( (resolve,reject) =>{
-
-                axios.post(API.PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
-                          .then(response => {
-
-                            resolve(response)
-                        })
-                        .catch((error) => {
-
-                           reject(error)
-                        })
-                    })
+        return axios.post(API.PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
+                          
       },
   
 

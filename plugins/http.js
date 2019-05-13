@@ -6,12 +6,6 @@ Vue.prototype.$http = Vue.http = axios.create()
 
 export default ({store}) => {
  
-  // if (process.server) {
-  //   return
-  // }
-
-    // console.log("Token before request" + store.state.auth.token)
-    
     if(store.state.auth.token)
     {
       Vue.http.interceptors.request.eject() //clears previoius token
@@ -59,18 +53,6 @@ export default ({store}) => {
         
         return Promise.reject(error)
       })
-    
-  // $axios.interceptors.request.use(request => {
-  //   request.baseURL = 'https://api.com/api/'
-
-  //   // Get token from auth.js store
-  //   const token = store.state.token
-
-  //   // Update token axios header
-  //   if (token) {
-  //     request.headers.common['Authorization'] = token
-  //   }
-  //   return request
-  // })
+  
 }
 

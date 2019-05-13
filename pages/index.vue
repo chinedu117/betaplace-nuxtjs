@@ -24,7 +24,7 @@
 
           <div class="pa-2 mt-3 mx-auto elevate-2 checking-place"  v-else >
 
-              <span>Good house for everyone. A pleasant place to live in. Without stress. </span>    
+              <span>Good house for everyone. A better place to live in. Without stress. </span>    
           </div>
 
          </v-flex>

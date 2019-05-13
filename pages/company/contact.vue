@@ -8,15 +8,13 @@
 	            	
 	   
 	            	<p>
-                      	Betaplace.com.ng is a dedicated web application built and managed Chinedu Dimonyeka and team, with the sole purpose of reducing the time taken to find and rent accomodation.
+                      	Betaplace.com.ng is a dedicated web service built and managed by Better Housing team, with the sole purpose of reducing the time taken to find and rent accomodation.
 	                </p>
-	                <p>
-                      	This project was inspired and intended to help stranded NYSC members or relocating families in search for accomodation.
-	                </p>
+	                 
 	                <p>
                       	Betaplace.com.ng is not affliated to any estate agency company. 
 	                </p>
-
+	                
 	                <h2 class="display-1">Contact Us</h2>
 	   
 	            	<p>

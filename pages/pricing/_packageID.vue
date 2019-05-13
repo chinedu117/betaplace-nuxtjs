@@ -194,12 +194,7 @@ components: {
           //go back to list of packages
 
       },
-    getPlan(packageID){
-        this.$store.dispatch('dashboard_store/retrievePlan',packageID)
-        .then((response) => {
-            this.plan = response.data
-        })
-    }
+
 }
 }
 </script>

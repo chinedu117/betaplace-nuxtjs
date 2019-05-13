@@ -455,7 +455,7 @@ export default {
 
     },
     components: {
-        Subscribe, ActionBtn, AgentInfo, CustomDialog
+         ActionBtn, AgentInfo, CustomDialog
     },
     computed: {
        

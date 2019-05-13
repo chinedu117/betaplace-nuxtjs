@@ -101,7 +101,14 @@
                                   <div class="pa-2  title font-weight-medium">
                                       <a style="text-decoration:none; color: grey" :href="`tel:${ agentInfo.phone_number_main }`">{{ agentInfo.phone_number_main }}</a>
                                   </div>
-                        </div>
+                                  <span style="letter-spacing: 2px; font-size:18px" class="grey--text font-weight-medium text-capitalize">
+                                  <v-icon>chat</v-icon> Whatsapp </span>
+
+                                  <div class="pa-2  title font-weight-medium">
+                                      <a style="text-decoration:none; color: grey" :href="`https://wa.me/${ agentInfo.phone_number_other }?text=${text_whatsapp}`">{{ agentInfo.phone_number_other }}
+                                      </a>
+                                  </div>
+                           </div>
                      </v-flex>
                      <v-flex xs12 md6>
 
@@ -178,7 +185,10 @@
 
      // components: { SocialShare },
      computed:{
-        
+        text_whatsapp(){
+               let text = "I am inquiring about the apartment listing "
+             return encodeURI(text)
+        },
         social_url(){
              return process.env.ROOT_URL + this.$route.fullPath
         },

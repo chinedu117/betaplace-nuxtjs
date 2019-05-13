@@ -146,7 +146,7 @@ function agentFromCache(state,slug){
                          
                          dispatch("retrieveAgentInfo",response.data.agent.slug)
                             
-                        dispatch('places_list_store/retrieveByPreferences',null,{root: true})
+                        // dispatch('places_list_store/retrieveByPreferences',null,{root: true})
                             
 
                        return response  

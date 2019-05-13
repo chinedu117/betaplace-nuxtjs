@@ -410,10 +410,10 @@
                     </v-card>
                 </v-flex>
                 
-                <v-flex md4 lg4 xs12>
+                <!-- <v-flex md4 lg4 xs12>
                     <subscribe/>
                 
-                </v-flex>
+                </v-flex> -->
              </v-layout>
         </v-container>
    </div>
@@ -421,7 +421,7 @@
 </template>
 <script>
 
-import Subscribe from '@/components/Subscribe.vue'
+// import Subscribe from '@/components/Subscribe.vue'
 import ActionBtn from '@/components/place_view/ActionBtn.vue'
 // import RateAgent from './components/RateAgent.vue'
 import insertBreaksFilter from  '@/utils/InsertBreaksFilter'

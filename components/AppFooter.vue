@@ -5,7 +5,7 @@
 
           <li><nuxt-link to='/company/privacy'>privacy policy</nuxt-link></li>
           <li><nuxt-link to='/company/terms-and-conditions'>terms and conditions</nuxt-link></li>
-           <li><nuxt-link to= '/company/rules'>Rules</nuxt-link></li>
+           <!-- <li><nuxt-link to= '/company/rules'>Rules</nuxt-link></li> -->
            <li><nuxt-link to='/company/contact'>Contact us</nuxt-link></li>
        </ul>
 
@@ -70,8 +70,13 @@ a {
 
       display: none;
    }
+   .my-appfooter > ul > p {
+
+      display: none;
+   }
    .my-appfooter {
      padding: 10px 10px;
+     display: none;
    }
 }
 

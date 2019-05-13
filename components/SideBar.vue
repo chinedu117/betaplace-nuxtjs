@@ -39,11 +39,39 @@
                 </v-list-tile-content>
             </v-list-tile>
 
-
+           
             
             <v-btn class="ml-4" v-if="!loggedIn" to="/agent/login" outline>LET OUT YOUR SPACE</v-btn>
+            
+            <v-list-tile v-if="mobile" avatar to='/company/privacy'>
+                <v-list-tile-avatar>
+                    <v-icon>file</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title>Privacy</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
 
-           
+            <v-list-tile v-if="mobile" avatar to='/company/terms-and-conditions'>
+                <v-list-tile-avatar>
+                    <v-icon>file</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title>Terms and Conditions</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile v-if="mobile" avatar to='/company/contact'>
+                <v-list-tile-avatar>
+                    <v-icon>file</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title>Contact us</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+
+
+
 
         </v-list>
  
@@ -85,6 +113,10 @@
             {
                 this.$store.dispatch('common/updateSidebar',{visible: val})
             }
+        },
+
+        mobile(){
+             return this.$vuetify.breakpoint.mdAndDown
         }
       },
      

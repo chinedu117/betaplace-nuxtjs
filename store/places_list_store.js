@@ -115,32 +115,7 @@ import axios from 'axios'
           return state.places
           // return .getters['places_list_store/placesFiltered']
         }
-        //  if (state.filterType == 'none') {
-
-        //      return state.places
-
-        //  } else if (state.filterType == 'budget') {
-
-        //      // console.log(state.filterType)
-        //      // return state.places
-
-        //      const maxBudget = Number(state.filterValue)
-
-        //      return state.places.filter(place => Number(place.price) <= maxBudget)
-        //  } else if (state.filterType == 'distance') {
-
-        //      return state.places.sort(function (first, second) {
-        //          return first.distance - second.distance
-        //      })
-        //  } else if(state.filterType == 'search'){
-
-        //     return state.places.filter(place => {
-        //         return place.location.toLowerCase().includes(state.filterValue)
-        //     })
-            
-        //  }
-
-
+        
      },
 
   }
@@ -158,13 +133,6 @@ import axios from 'axios'
         state.nextPageUrl = Url
     },
     updateUserPreferences(state,place){
-    
-        // localStorage.setItem("visited",place.id)
-        // localStorage.setItem("pref_price",place.price)
-        // localStorage.setItem("pref_state",place.state)
-        // localStorage.setItem('pref_cords',JSON.stringify([place.latitude,place.longitude]))
-        // localStorage.setItem('pref_category',place.place_category_id)
-        // localStorage.setItem('pref_location',place.location)
 
         state.userPreferences = Object.assign({},state.userPreferences,{ 
             visited: place.id,
@@ -232,17 +200,6 @@ import axios from 'axios'
            state.places = payload
       }
 
-      // updateDistance(state, myLocation) {
-
-      //     state.places.forEach(place => {
-
-      //         place.distance = haversine(myLocation, {
-      //             latitude: place.latitude,
-      //             longitude: place.longitude
-      //         }, { 'unit': 'kilometer' })
-
-      //     })
-      // },
   
   }
 
@@ -290,7 +247,7 @@ import axios from 'axios'
             dispatch('common/updateLoader',false,{root: true})
          
     },  
-    clearUserCoords({commit,dispatch}){
+     clearUserCoords({commit,dispatch}){
          commit("clearUserCoords")
          dispatch("refreshPage")
     },

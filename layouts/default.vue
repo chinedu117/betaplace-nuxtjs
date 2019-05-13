@@ -5,6 +5,7 @@
     <sidebar/>
 
     <!-- the main toolbar of the page -->
+    
     <tool-bar app v-if="showToolBar"/>
     
     <!-- Search Bar will show only when the search icon is clicked -->

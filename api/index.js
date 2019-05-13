@@ -1,7 +1,8 @@
 
-export const baseUrl = process.env.ROOT_API
-   const publicPath = baseUrl.substr(0,baseUrl.length - 3) 
+export const baseUrl =  "http://betaplace.test/api" //process.env.ROOT_API
+       const publicPath = baseUrl.substr(0,baseUrl.length - 3) 
 export const PLACE_DEFAULT_IMAGE_URL = publicPath + "storage/places_images/default.jpeg"
+export const AGENT_PROFILE_DEFAULT_IMAGE_URL = publicPath + "storage/profile_img/default.jpeg"
 export const PLACES_URL = baseUrl + '/p'
 
 export const PLACES_SEARCH_URL = PLACES_URL + '/s'

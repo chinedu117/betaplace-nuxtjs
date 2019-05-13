@@ -1,15 +1,10 @@
 <template>
-    <div>  
-        <!--    <social-share 
-             :title='shareable_title'
-             :description="social_description"
-             >
-            </social-share> -->
-                
+    <div class="action-btn">  
+      
             <v-chip 
                 :outline="$vuetify.breakpoint.lgAndUp" 
                 text-color="accent"
-                :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                :class=" $vuetify.breakpoint.lgAndUp ? 'mr-2 pa-2' : 'tool-icon' "
                 @click="like()"
                 >
                 <v-avatar>
@@ -17,46 +12,31 @@
                 </v-avatar>
                 {{ tempLikes | abbrNum(1) }}
             </v-chip>
+
+
             <v-chip 
             :outline="$vuetify.breakpoint.lgAndUp"
                 text-color="accent" 
-            :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+            :class=" $vuetify.breakpoint.lgAndUp ? 'mr-2 pa-2' : 'tool-icon tool-icon-prominent' "
             ref="share_page"
             @click.prevent="share"
                 >
                 <v-icon color="accent">share</v-icon>
             </v-chip>
 
-            <!-- <v-chip 
-                
-                :outline="$vuetify.breakpoint.lgAndUp" 
-                text-color="accent" 
-            :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-            @click="showAgentInfo"
-                >
-                <v-icon color="green darken-2" >person</v-icon>
-            </v-chip> -->
+            
 
             <v-chip 
             :outline="$vuetify.breakpoint.lgAndUp"
             
             text-color="accent" 
-            :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+            :class=" $vuetify.breakpoint.lgAndUp ? 'mr-2 pa-2' : 'tool-icon' "
             @click.prevent="seeMap(latitude,longitude)"
             >
                 <v-icon color="red darken-2" >place</v-icon>
             </v-chip> 
 
-           <!-- <closable-prompt :show="showAssessment" @close-prompt="showAssessment = false">
-            <v-btn small dark color="red darken-2" @click.prevent="assessment(0)">NO</v-btn>
-    
-            <div class="px-2">
-               Was this  useful ? 
-            </div>
-            
-
-              <v-btn small dark color="green darken-2" @click.prevent="assessment(1)">YES</v-btn>
-           </closable-prompt> -->
+          
  </div>
 </template>
 <script>
@@ -265,4 +245,36 @@ export default {
  }
 }
 </script>
+<style lang="stylus">
+
+@media screen and (max-width: 1080px)
+  .toolbox
+    width: 100%
+  
+  .action-btn
+    display: flex
+    justify-content: space-between
+    background-color: #fff;
+    height: auto
+    padding: 8px 5px
+    position: fixed
+    bottom: 0px
+    width: 100%
+    z-index: 100000
+    border-top: 2px solid #3f51b5
+    box-shadow: 0px -1.2px 6px rgba(0, 0, 0, 0.2)
+
+  .tool-icon
+    background-color: none !important;
+    flex-basis: 20%
+  .tool-icon-prominent
+    width: 50px
+    height: 50px
+    border-radius:50%
+    background-color: #414190;
+    color: white;
+    margin: 0px auto;
+    padding: 12.5px;
+    box-shadow: 0px -1.2px 6px rgba(0, 0, 0, 0.2)
+</style>
 

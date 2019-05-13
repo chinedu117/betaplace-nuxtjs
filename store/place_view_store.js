@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import * as API from '@/api'
-import store from 'vuex'
+// import store from 'vuex'
 
 function placeFromCache(state,slug){
        let index = state.place_cache.findIndex((place) =>{
@@ -88,7 +88,12 @@ function agentFromCache(state,slug){
         state.place_cache.push(place)
     }, 
     addAgentInfo(state,agent){
+        
+        if(agent.profile_img.length == 0){
 
+           agent.profile_img = API.AGENT_PROFILE_DEFAULT_IMAGE_URL
+           
+        }
         state.agent_info = agent
         state.agents_cache.push(agent)
     },
@@ -144,7 +149,7 @@ function agentFromCache(state,slug){
                         dispatch('places_list_store/retrieveByPreferences',null,{root: true})
                             
 
-                         
+                       return response  
                         
                          
                   
@@ -164,42 +169,29 @@ function agentFromCache(state,slug){
       },
   
 
-    retrieveAgentInfo({commit,state},agentSlug){
+    async retrieveAgentInfo({commit,state},agentSlug){
          //allow it to also send and r eceive cookies
         
-        // var fromCache = agentFromCache(state,agentSlug)
+        var fromCache = agentFromCache(state,agentSlug)
 
 
 
-        // if(fromCache !== false){
+        if(fromCache !== false){
                
 
-        //        return fromCache
+               return fromCache
 
-        // } else{
+        } else{
 
         
 
-              return new Promise( (resolve,reject) =>{
-
-
-                    
-                axios.get(API.AGENT_PUBLIC_INFO_URL(agentSlug))
-                .then(function (response) {
-                            
+              let response = await axios.get(API.AGENT_PUBLIC_INFO_URL(agentSlug))
+                 
                             response.data.slug = agentSlug
-                          commit("addAgentInfo",response.data)
+                            await commit("addAgentInfo",response.data)
       
-                        resolve(response)
-                    })
-                .catch(function (error) {
-                    //  console.log(error)
-                         reject(error)
-                });
-
-
-            })
-        // }//else end
+                  return response     
+        }//else end
     },
 
     clearCache({state,commit}){

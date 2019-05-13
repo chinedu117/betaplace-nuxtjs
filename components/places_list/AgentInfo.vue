@@ -99,7 +99,7 @@
                                   <v-icon>phone</v-icon> Phone </span>
 
                                   <div class="pa-2  title font-weight-medium">
-                                      <a :href="`tel:${ agentInfo.phone_number_main }`">{{ agentInfo.phone_number_main }}</a>
+                                      <a style="text-decoration:none; color: grey" :href="`tel:${ agentInfo.phone_number_main }`">{{ agentInfo.phone_number_main }}</a>
                                   </div>
                         </div>
                      </v-flex>
@@ -257,6 +257,9 @@
 
   }
 </script>
-<style>
-
+<style scoped>
+a, a::visited {
+  text-decoration: none;
+  color: grey;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div> 
-      <v-container grid-list-xs class="container--mobile" v-if="true">
+      <v-container grid-list-xs class="container--mobile">
         <v-layout row wrap>
             <v-flex xs12 md8 lg8 >
           <div
@@ -22,9 +22,10 @@
                 <load-more/>
          </div>
 
-          <div class="pa-2 mt-3 mx-auto elevate-2 checking-place"  v-else >
+           <div class="pa-2 mt-3 mx-auto elevate-2 checking-place"  v-else >
 
-              <span>Good house for everyone. A better place to live in. Without stress. </span>    
+             Good house for everyone. A better place to live in. Without stress. 
+
           </div>
 
          </v-flex>

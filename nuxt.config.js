@@ -57,7 +57,7 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
-    'cookie-universal-nuxt',
+    'cookie-universal-nuxt'
   ],
   /*
   ** Axios module configuration
@@ -92,7 +92,18 @@ module.exports = {
   /*
   ** Generate location
   */
-  
+   workbox: {
+      runtimeCaching: [
+      {
+        // Should be a regex string. Compiles into new RegExp('https://my-cdn.com/.*')
+        urlPattern: 'https://fonts.googleapis.com/.*',
+        // Defaults to `networkFirst` if omitted
+        // handler: 'networkFirst',
+        // Defaults to `GET` if omitted
+        // method: 'GET'
+      }
+    ]
+  },
 
   
 

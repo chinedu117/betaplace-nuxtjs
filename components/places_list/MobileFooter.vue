@@ -5,9 +5,7 @@
                   <v-icon  size="30px" v-bind="iconProps"  @click="displaySearchBox">search</v-icon>
                      <br>
                    <span class="grey--text text-capitalize text-xs-center">Search</span>
-                
-                <!-- <v-icon size="30px" >search</v-icon><br>
-                 <span class="grey--text text-capitalize text-xs-center">Search</span> -->
+               
             </div>
 
 
@@ -22,9 +20,7 @@
                   <v-icon  v-bind="iconProps" @click="displayFilterBox">filter_list</v-icon>
                     <br>
                     <span class="grey--text text-capitalize text-xs-center">Filter</span>
-                
-            <!-- <v-icon size="30px"  >filter_list</v-icon><br>
-             <span class="grey--text text-capitalize text-xs-center">Filter</span> -->
+            
             </div>
 
 

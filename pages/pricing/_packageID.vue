@@ -39,7 +39,7 @@
                         </v-card-text>
                         <v-card-actions>
                            <div class="pricing-action mx-auto">
-                           
+                              <no-ssr>
                                  <paystack
                                     :metadata="paystackMetaData"
                                     :amount="plan.price * 100"
@@ -53,6 +53,7 @@
                                 <i class="fas fa-money-bill-alt"></i>
                                    <v-btn class="btn-color-action" color="white" :loading="loading" flat :disabled="loading"  @click="loading = true">BUY</v-btn>
                                 </paystack>
+                              </no-ssr>
             
                          </div>
 
@@ -101,7 +102,7 @@ components: {
 
        plan() {
             return this.$store.getters['dashboard_store/plan']
-       }
+       },
       reference(){
         let text = "";
         let t = new Date()

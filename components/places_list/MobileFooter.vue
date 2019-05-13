@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .agent-prompt
   display:none
 @media screen and (max-width: 1080px)

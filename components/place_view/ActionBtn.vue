@@ -16,12 +16,12 @@
 
             <v-chip 
             :outline="$vuetify.breakpoint.lgAndUp"
-            text-color="white" 
+            :text-color="$vuetify.breakpoint.lgAndUp ? 'accent' : 'white'" 
             :class=" $vuetify.breakpoint.lgAndUp ? 'mr-2 pa-2' : 'tool-icon tool-icon-prominent' "
             ref="share_page"
             @click.prevent="share"
                 >
-                <v-icon color="white">share</v-icon>
+                <v-icon :color="$vuetify.breakpoint.lgAndUp ? 'accent' : 'white'">share</v-icon>
             </v-chip>
 
             
@@ -245,7 +245,7 @@ export default {
  }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 
 @media screen and (max-width: 1080px)
   .toolbox
@@ -254,7 +254,7 @@ export default {
   .action-btn
     display: flex
     justify-content: space-between
-    background: #fff
+    background: #fff !important;
     height: auto
     padding: 8px 5px
     position: fixed
@@ -265,12 +265,12 @@ export default {
     box-shadow: 0px -1.2px 6px rgba(0, 0, 0, 0.2)
 
   .tool-icon
-    background: none !important;
+    background: none;
   .tool-icon-prominent
     width: 50px
     height: 50px
     border-radius:50%
-    background-color: #414190 !important;
+    background: #414190 !important;
     color: white;
     margin: 0px auto;
     box-shadow: 0px -1.2px 6px rgba(0, 0, 0, 0.2)

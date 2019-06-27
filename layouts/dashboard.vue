@@ -23,7 +23,7 @@
 
          </transition>
     </v-content>
-
+  
    <!-- the snackbar or toast section for displaying errors and success messages -->
     <v-snackbar
     

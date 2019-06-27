@@ -217,7 +217,7 @@ export default {
          this.mixin_handleRequest(this.$store.dispatch('auth/submitProfile',profileData)
                                 .then(response => {
                                     let slug = this.$store.getters['auth/getUser'].slug
-                                    this.$router.push({name: 'AgentProfileView', params: { agentSlug: slug }})
+                                    this.$router.push({path: `/agent/profile/${slug}`})
                             }))
     },
 

@@ -109,6 +109,13 @@ export default {
 
   },
   mixins: [ UploadsImage, HandleRequest ],
+
+  async fetch({store}){
+       
+       await store.dispatch('auth/getMyProfile')
+
+  },
+
   created(){
       this.mixin_handleRequest(this.$store.dispatch('auth/getMyProfile').then(response =>{ 
              this.profile = response.data

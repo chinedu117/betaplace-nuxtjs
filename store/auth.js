@@ -179,11 +179,14 @@ import * as API from '@/api'
       
     },
       
-      async getMyProfile({getters}){
+      async getMyProfile({commit,getters}){
         axios.defaults.headers.common['Authorization'] = getters.getToken
          
-           return await  axios.get(API.GET_MY_PROFILE_URL)
-       
+            let response  = await  axios.get(API.GET_MY_PROFILE_URL)
+
+            await commit('place_view_store/addAgentInfo',response.data,{root:true})
+
+            return response
       
       },
 

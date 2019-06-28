@@ -45,7 +45,6 @@ export default {
            in_maxWidth: "700",
            in_maxHeight: "500",
            in_compressionQuality: "0.8",
-           profile: null,
       }
   },
   components:{ AgentInfo },
@@ -100,6 +99,11 @@ export default {
               return this.$store.getters['auth/getUser'].slug
          },
 
+         profile(){
+
+             return this.$store.getters['place_view_store/agentInfo']
+         }
+
          
       },
   watch:{
@@ -116,11 +120,6 @@ export default {
 
   },
 
-  created(){
-      this.mixin_handleRequest(this.$store.dispatch('auth/getMyProfile').then(response =>{ 
-             this.profile = response.data
-         }))
-  },
 
   methods:{
       upload(){

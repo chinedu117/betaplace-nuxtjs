@@ -1,6 +1,6 @@
 <template>	
   
-  <div v-if="agentInfo !== null">
+  <div v-if="$store.state.place_view_store.agent_info !== null">
      <v-card  v-bind="card_style">
       <!-- header -->
         <div class="pa-3 text-xs-left" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
@@ -213,7 +213,7 @@
          },
          agentInfo(){
 
-         	return this.$store.getters["place_view_store/agentInfo"]
+         	return this.$store.state.place_view_store.agent_info
          },
          imageSource(){
 

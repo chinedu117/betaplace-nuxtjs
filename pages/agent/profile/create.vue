@@ -151,24 +151,26 @@ import NaijaStates from 'naija-state-local-government'
 export default {
   middleware: ['authenticated','verified-email'],
   layout: 'dashboard',
+  async fetch({store}){
+       await store.dispatch('auth/getMyProfile')
+  },
+
   data(){
       return {
-          profile:{
-              country:"Nigeria"
-          },
+          profile: Object.assign({country:"Nigeria"},this.$store.state.place_view_store.agent_info),
           showAddress: false,
           
       }
   },
   mixins: [ HandleRequest, insertBreaksFilter],
-  created(){
-      //check if route params was passed
-      if(this.$route.params.agentSlug){
-          //get the user profile
-          this.getMyProfile()
-          this.setAgentHandle()
-      }
-  },
+  // created(){
+  //     //check if route params was passed
+  //     if(this.$route.params.agentSlug){
+  //         //get the user profile
+  //         this.getMyProfile()
+  //         this.setAgentHandle()
+  //     }
+  // },
   computed: {
   
          states(){

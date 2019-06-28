@@ -23,8 +23,10 @@
          </div>
 
            <div class="pa-2 mt-3 mx-auto elevate-2 checking-place"  v-else >
+        
+              <p>Oops....All the available accomodation has been taken</p>
 
-             Good house for everyone. A better place to live in. Without stress. 
+               <v-btn class="ma-2" v-if="!loggedIn" to="/agent/login" outline>Become An Agent</v-btn>
 
           </div>
 

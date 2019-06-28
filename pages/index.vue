@@ -26,7 +26,7 @@
         
               <p>Oops....All the available accomodation has been taken</p>
 
-               <v-btn class="ma-2" v-if="!loggedIn" to="/agent/login" outline>Become An Agent</v-btn>
+               <v-btn class="ma-2"  to="/agent/login" outline>Become An Agent</v-btn>
 
           </div>
 

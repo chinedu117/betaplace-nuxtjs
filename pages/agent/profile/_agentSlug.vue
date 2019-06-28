@@ -135,7 +135,7 @@ export default {
       editProfile(){
 
          let slug = this.$store.getters['auth/getUser'].slug
-                   this.$router.push({name: 'AgentProfile', params: { agentSlug: slug }})
+                   this.$router.push({path: '/agent/profile/create'})
       }
   }
 }

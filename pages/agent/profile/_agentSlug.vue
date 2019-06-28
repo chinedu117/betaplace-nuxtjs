@@ -45,6 +45,7 @@ export default {
            in_maxWidth: "700",
            in_maxHeight: "500",
            in_compressionQuality: "0.8",
+           profile: this.$store.getters['place_view_store/agentInfo']
       }
   },
   components:{ AgentInfo },
@@ -99,10 +100,7 @@ export default {
               return this.$store.getters['auth/getUser'].slug
          },
 
-         profile(){
-
-             return this.$store.getters['place_view_store/agentInfo']
-         }
+         
 
          
       },

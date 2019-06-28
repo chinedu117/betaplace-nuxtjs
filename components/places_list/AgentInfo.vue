@@ -169,11 +169,7 @@
       }
   	 },
      mixins:[ insertBreaksFilter ],
-     created(){
-     	//get the information
-     	// this.$store.dispatch("place_view_store/retrieveAgentInfo",this.agent_slug)
-      
-     },
+     
      mounted(){
      	this.$store.dispatch("common/updateTitle",this.agentInfo.agency_name)
           //the default appearance

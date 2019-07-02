@@ -20,6 +20,7 @@
     "naija-state-local-government": "^1.1.0",
     "nuxt": "^2.4.0",
     "vee-validate": "^2.1.4",
+    "vue-axios": "^2.1.4",
     "vue-browser-geolocation": "^1.5.0",
     "vue-cookies": "^1.5.13",
     "vue-currency-filter": "^3.2.0",
@@ -31,7 +32,6 @@
     "vuetify": "^1.5.5",
     "vuetify-loader": "^1.2.1",
     "vuex-persistedstate": "^2.5.4"
-    
   },
   "devDependencies": {
     "nodemon": "^1.18.9",

@@ -33,6 +33,7 @@
                             <v-text-field
                             outline
                             name="agent_handle"
+                            v-model="profile.agent_handle"
                             label="Your Handle"
                             id="agent_handle"
                            :error-messages="serverErrors.agent_handle ? serverErrors.agent_handle : errors.collect('agent_handle')"

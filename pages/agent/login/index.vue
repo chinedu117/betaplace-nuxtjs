@@ -89,7 +89,7 @@
 
 
 <script>
-	import HandleRequest from '@/utils/RequestHandler.js'
+	import HandleRequest from '~/utils/RequestHandler.js'
 	export default {
 	  middleware: 'anonymous',
       layout: 'default',
@@ -110,12 +110,13 @@
   
         AuthProvider(provider) {
                 var bb = this
-              this.$auth.authenticate(provider).then(response =>{
-              	// console.log(response)
-                this.SocialLogin(provider,response)
+              this.$auth.authenticate(provider)
+               .then(response =>{
+              	console.log(response)
+                return this.SocialLogin(provider,response)
 
                 }).catch(err => {
-                    // console.log({err:err})
+                    console.log(err)
                 })
 
             },

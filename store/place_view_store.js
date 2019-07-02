@@ -1,5 +1,5 @@
   
-import { PLACE_URL,PLACE_STAT_URL,AGENT_PUBLIC_INFO_URL, AGENT_PROFILE_DEFAULT_IMAGE_URL } from '@/api'
+import { PLACE_URL,PLACE_STAT_URL,AGENT_PUBLIC_INFO_URL,PLACE_DEFAULT_IMAGE_URL, AGENT_PROFILE_DEFAULT_IMAGE_URL } from '@/api'
 // import store from 'vuex'
 
 function placeFromCache(state,slug){

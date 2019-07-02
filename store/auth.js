@@ -101,7 +101,7 @@ import {  FORGOT_PASSWORD_URL, AGENT_PROFILE_IMAGE_UPLOAD_URL,
         this.$axios.defaults.headers.common['Authorization'] =  getters.getToken
         try {
 
-         const  { data } = await axios.get(USER_INFO_URL)      
+         const  { data } = await this.$axios.get(USER_INFO_URL)      
            await  commit('saveUser', data)
         }catch(e){
            console.log("unable to retrieve user info")

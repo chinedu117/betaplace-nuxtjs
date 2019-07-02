@@ -296,7 +296,7 @@ import * as API from '@/api'
             
            
             return new Promise( (resolve,reject) =>{
-              axios.get(API.PLACES_URL.concat(Query))
+              this.$axios.get(API.PLACES_URL.concat(Query))
                 .then(function (response) {
                     
                  commit('updateNextPage',response.data.next_page_url)

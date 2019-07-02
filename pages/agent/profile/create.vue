@@ -152,7 +152,11 @@ export default {
   middleware: ['authenticated','verified-email'],
   layout: 'dashboard',
   async fetch({store}){
+
+    if(store.getters['auth/userHasProfile'])
+    {
        await store.dispatch('auth/getMyProfile')
+    }
   },
 
   data(){

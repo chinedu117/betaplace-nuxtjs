@@ -1,7 +1,5 @@
 import * as API from '@/api'
 // import haversine from 'haversine'
-import Vue from 'vue'
-import axios from 'axios'
   // State loaded when this component is first loaded.
   export const state = () => {
 
@@ -210,7 +208,7 @@ import axios from 'axios'
         {
           return new Promise( (resolve,reject) =>{
  
-             Vue.http.get(API.PLACE_CATEGORY_LIST_URL)
+             this.$axios.get(API.PLACE_CATEGORY_LIST_URL)
                 .then(response => {
                     
                     commit("updateCategories",response.data)
@@ -218,7 +216,7 @@ import axios from 'axios'
                 })
                 .catch((error) => {
 
-                    reject(erro)
+                    reject(error)
                 })
         })
       }
@@ -268,7 +266,7 @@ import axios from 'axios'
          }
         
         return new Promise( (resolve,reject) =>{
-            Vue.http.get(FILTER_URL,{params:state.preferredFilters})
+            this.$axios.get(FILTER_URL,{params:state.preferredFilters})
             .then(function (response) {
                     commit('updateNextPage',null)
                     commit("updateFilterBox",{show:true,filtered:response.data})
@@ -327,7 +325,7 @@ import axios from 'axios'
           
            
             return new Promise( (resolve,reject) =>{
-               Vue.http.get(API.AGENT_PUBLIC_PLACES_URL(agentSlug))
+               this.$axios.get(API.AGENT_PUBLIC_PLACES_URL(agentSlug))
                 .then(function (response) {
                   
                  // commit('updateNextPage',response.data.next_page_url)
@@ -372,7 +370,7 @@ import axios from 'axios'
                     
                     // console.log(API.PLACES_URL.concat(Query))
                     return new Promise( (resolve,reject) =>{
-                        Vue.http.get(API.PLACES_URL.concat(Query))
+                        this.$axios.get(API.PLACES_URL.concat(Query))
                          .then(function (response) {
                              
                             response.data.forEach((place) => {
@@ -399,7 +397,7 @@ import axios from 'axios'
         
          if(getters.nextPageUrl !== null){
             return new Promise( (resolve,reject) =>{
-                Vue.http.get(getters.nextPageUrl)
+                this.$axios.get(getters.nextPageUrl)
                  .then(function (response) {
                     
                     commit('updateNextPage',response.data.next_page_url)
@@ -425,7 +423,7 @@ import axios from 'axios'
     { 
         commit("addPreferredFilters",{filter_search: searchText})
         
-        Vue.http.defaults.withCredentials = true
+        this.$axios.defaults.withCredentials = true
 
          let SEARCH_URL = API.PLACES_SEARCH_URL
          // if(state.userCoordinates !== null){
@@ -434,7 +432,7 @@ import axios from 'axios'
          // }
 
         return new Promise( (resolve,reject) =>{
-            Vue.http.get(SEARCH_URL,{params:{search:searchText}})
+            this.$axios.get(SEARCH_URL,{params:{search:searchText}})
             .then(function (response) {
 
                     commit('updateNextPage',null)

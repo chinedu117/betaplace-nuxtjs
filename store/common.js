@@ -26,7 +26,7 @@ const defaults = {
       show: true,
       component:''
     },
-
+    validation_errors: [],
     socialShare:{
       show: false,
       shareable_title: null,
@@ -46,6 +46,9 @@ export const state = () => {
 }
 
 export const mutations = {
+   updateServerValidationErrors(state, errors){
+          state.validation_errors = errors
+      },
     updateSidebar (state, options) {
         state.sidebar = Object.assign({}, defaults.sidebar, options)
       },
@@ -129,6 +132,10 @@ export const actions = {
   
       updateSnackBar ({ commit }, options) {
         commit('updateSnackBar', options)
-      }
+      },
+       updateServerValidationErrors({commit},error){
+          
+          commit('updateServerValidationErrors',error)
+     }
 }
 

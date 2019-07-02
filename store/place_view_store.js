@@ -1,5 +1,3 @@
-
-import axios from 'axios'
 import * as API from '@/api'
 // import store from 'vuex'
 
@@ -136,10 +134,10 @@ function agentFromCache(state,slug){
         } else{
 
             
-              axios.defaults.withCredentials = true
+              this.$axios.defaults.withCredentials = true
             
              
-              let response = await axios.get(API.PLACE_URL(placeSlug))
+              let response = await this.$axios.get(API.PLACE_URL(placeSlug))
               
                          commit('places_list_store/updateUserPreferences',response.data,{root: true})//{root: true})
                          commit('addPlace',response.data)
@@ -164,7 +162,7 @@ function agentFromCache(state,slug){
     async  statRequest({commit}, payload){
         
 
-        return axios.post(API.PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
+        return this.$axios.post(API.PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
                           
       },
   
@@ -185,7 +183,7 @@ function agentFromCache(state,slug){
 
         
 
-              let response = await axios.get(API.AGENT_PUBLIC_INFO_URL(agentSlug))
+              let response = await this.$axios.get(API.AGENT_PUBLIC_INFO_URL(agentSlug))
                  
                             response.data.slug = agentSlug
                             await commit("addAgentInfo",response.data)

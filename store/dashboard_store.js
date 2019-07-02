@@ -1,5 +1,4 @@
 import * as API from '@/api'
-import Vue from 'vue'
 
 export const state = () => {
 
@@ -141,14 +140,14 @@ export const actions = {
     
    async retrievePlace({commit},placeSlug){
    
-        return Vue.http.get(API.DASHBORD_PLACE_RETRIEVE_URL(placeSlug))
+        return this.$axios.get(API.DASHBORD_PLACE_RETRIEVE_URL(placeSlug))
      
     },
    async  retrieveMySubscriptions({commit,state}){
         if(!state.hasLoadedSubscriptions){
            
      
-              const {data} = await Vue.http.get(API.MY_SUBSCRIPTIONS_URL)
+              const {data} = await this.$axios.get(API.MY_SUBSCRIPTIONS_URL)
                     
                      data.forEach((subscription) =>{
                            commit("addSubscription",subscription)
@@ -162,7 +161,7 @@ export const actions = {
     async retrieveAgentPlacesList({commit,state},payload) {
          if(!state.hasLoadedPlaces){
           
-               const {data} =   await Vue.http.get(API.AGENT_PLACES_URL)
+               const {data} =   await this.$axios.get(API.AGENT_PLACES_URL)
                      
 
                         data.forEach((place) =>{
@@ -175,7 +174,7 @@ export const actions = {
     //Payment
     async confirmPayment({commit},transactionRef){
 
-          return await  Vue.http.post(API.PAYSTACK_CONFIRM_URL,{transaction_ref: transactionRef})
+          return await  this.$axios.post(API.PAYSTACK_CONFIRM_URL,{transaction_ref: transactionRef})
              
 
     },
@@ -187,7 +186,7 @@ export const actions = {
        
         if(!state.hasLoadedPlans){
              
-              const {data } = await Vue.http.get(API.PACKAGES_URL)
+              const {data } = await this.$axios.get(API.PACKAGES_URL)
                 data.forEach((plan) =>{
                            commit("addPlan",plan)
 
@@ -203,7 +202,7 @@ export const actions = {
 
     async retrievePlan({commit},planID){
     
-          const { data } = await  Vue.http.get(API.PACKAGE_URL(planID))
+          const { data } = await  this.$axios.get(API.PACKAGE_URL(planID))
          await commit("setPlan",data)
                 
         
@@ -212,7 +211,7 @@ export const actions = {
     async  publishPlace({commit},payload){
        
   
-           let result = await Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_PUBLISH_URL(payload.place_slug))
+           let result = await this.$axios.post(API.DASHBORD_PLACE_EXPLICIT_PUBLISH_URL(payload.place_slug))
                  
               await commit("publishPlace",payload.place_slug)
            return result             
@@ -225,7 +224,7 @@ export const actions = {
     async unpublishPlace({commit},payload){
         // if(state.planList.lenght < 1){
             
-            let result =   await Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL(payload.place_slug))
+            let result =   await this.$axios.post(API.DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL(payload.place_slug))
                  
                       await   commit("unpublishPlace",payload.place_slug)
              return result           
@@ -234,7 +233,7 @@ export const actions = {
 
    async renewPlace({commit},payload){
         
-               let result =   await Vue.http.post(API.DASHBOARD_PLACE_RENEW_URL(payload.place_slug))
+               let result =   await this.$axios.post(API.DASHBOARD_PLACE_RENEW_URL(payload.place_slug))
      
                      await commit("unexpirePlace",payload.place_slug)
                 return result
@@ -242,20 +241,20 @@ export const actions = {
 
    async  removeImage({commit},payload){
 
-            return await  Vue.http.post(API.DASHBORD_PLACE_IMAGE_REMOVE_URL(payload.get('place_slug')),payload)
+            return await  this.$axios.post(API.DASHBORD_PLACE_IMAGE_REMOVE_URL(payload.get('place_slug')),payload)
              
   },
   async saveImage({commit},payload){
 
     
-    return await Vue.http.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(payload.get('place_slug')),payload)
+    return await this.$axios.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(payload.get('place_slug')),payload)
        
   },
 
    //api call to create a place
  async   saveFeatures({commit},payload){
 
-    return await  Vue.http.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
+    return await  this.$axios.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
                    
   },
 
@@ -269,7 +268,7 @@ export const actions = {
          url = API.DASHBORD_PLACE_CREATE_URL
       }
           commit("reset","PLACES")
-          return await  Vue.http.post(url,payload)
+          return await  this.$axios.post(url,payload)
                 
 
   },
@@ -277,13 +276,13 @@ export const actions = {
    async  getCategoryList({commit}) {
         
        
-       return await  Vue.http.get(API.PLACE_CATEGORY_LIST_URL)
+       return await  this.$axios.get(API.PLACE_CATEGORY_LIST_URL)
         
   },
 
  async deletePlace({commit},payload){
 
-     await   Vue.http.post(API.AGENT_PLACE_DELETE_URL(payload.place_slug))
+     await   this.$axios.post(API.AGENT_PLACE_DELETE_URL(payload.place_slug))
      await   commit("deletePlace",payload.place_slug)
                    
              
@@ -291,7 +290,7 @@ export const actions = {
   
     async publishPlaceToggle({commit},payload){
 
-       return await  Vue.http.post(API.DASHBOARD_PLACE_PUBLISH_URL(payload.place_slug))
+       return await  this.$axios.post(API.DASHBOARD_PLACE_PUBLISH_URL(payload.place_slug))
             
   },
 

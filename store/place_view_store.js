@@ -1,4 +1,5 @@
-import * as API from '@/api'
+  
+import { PLACE_URL,PLACE_STAT_URL,AGENT_PUBLIC_INFO_URL, AGENT_PROFILE_DEFAULT_IMAGE_URL } from '@/api'
 // import store from 'vuex'
 
 function placeFromCache(state,slug){
@@ -77,7 +78,7 @@ function agentFromCache(state,slug){
                                     { "id": 1,
                                        "title": "Image not provided",
                                         "Description": "Betaplace: Accomodation made easy",
-                                        "src": API.PLACE_DEFAULT_IMAGE_URL
+                                        "src": PLACE_DEFAULT_IMAGE_URL
                                           }]  
                                         } 
         }
@@ -89,7 +90,7 @@ function agentFromCache(state,slug){
         
         if(agent.profile_img.length == 0){
 
-           agent.profile_img = API.AGENT_PROFILE_DEFAULT_IMAGE_URL
+           agent.profile_img = AGENT_PROFILE_DEFAULT_IMAGE_URL
            
         }
         state.agent_info = agent
@@ -137,7 +138,7 @@ function agentFromCache(state,slug){
               this.$axios.defaults.withCredentials = true
             
              
-              let response = await this.$axios.get(API.PLACE_URL(placeSlug))
+              let response = await this.$axios.get(PLACE_URL(placeSlug))
               
                          commit('places_list_store/updateUserPreferences',response.data,{root: true})//{root: true})
                          commit('addPlace',response.data)
@@ -148,9 +149,6 @@ function agentFromCache(state,slug){
                             
 
                        return response  
-                        
-                         
-                  
 
         }//elseif
        
@@ -162,7 +160,7 @@ function agentFromCache(state,slug){
     async  statRequest({commit}, payload){
         
 
-        return this.$axios.post(API.PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
+        return this.$axios.post(PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
                           
       },
   
@@ -183,7 +181,7 @@ function agentFromCache(state,slug){
 
         
 
-              let response = await this.$axios.get(API.AGENT_PUBLIC_INFO_URL(agentSlug))
+              let response = await this.$axios.get(AGENT_PUBLIC_INFO_URL(agentSlug))
                  
                             response.data.slug = agentSlug
                             await commit("addAgentInfo",response.data)
@@ -198,3 +196,4 @@ function agentFromCache(state,slug){
     }
 
   }
+

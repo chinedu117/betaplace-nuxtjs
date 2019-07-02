@@ -34,10 +34,10 @@ import {  FORGOT_PASSWORD_URL, AGENT_PROFILE_IMAGE_UPLOAD_URL,
                
               const access_token  = 'Bearer ' + token
                state.token = access_token
-               this.$cookies.set('x-access-token',access_token,{
-                                      path: '/',
-                                      maxAge: 60 * 60 * 24 * 7
-                                    })
+               // this.$cookies.set('x-access-token',access_token,{
+               //                        path: '/',
+               //                        maxAge: 60 * 60 * 24 * 7
+               //                      })
                // this.$cookies.set('x-access-token', access_token, 60 * 60 * 24 * 30)
       
               // localStorage.setItem('access_token',access_token)
@@ -50,7 +50,7 @@ import {  FORGOT_PASSWORD_URL, AGENT_PROFILE_IMAGE_UPLOAD_URL,
               state.token = null
               //localStorage.removeItem('user')
               state.user = null
-              this.$cookies.remove('x-access-token')
+              // this.$cookies.remove('x-access-token')
           }
           
     }

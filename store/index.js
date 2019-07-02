@@ -1,4 +1,3 @@
-import Vue from 'vue'
 export const strict = false
 
 export const state = () => {

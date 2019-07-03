@@ -11,7 +11,7 @@
                                           Agency Information
                                        </span><br>
                                        <span class="grey--text subheading text-lowercase" style="letter-spacing: 2px; overflow: hidden">
-                                        {{ profile.agent_slug ? profile.agent_slug : '' }}
+                                        {{ profile.agent_handle ? profile.agent_handle : '' }}
                                        </span>
                                      </v-flex>
                                      
@@ -201,7 +201,7 @@ export default {
 
         this.profile.agent_handle = agencyName.replace(/\s/g,"_").toLowerCase()
     },
-    
+
     submit(){
          this.$validator.validate().then(result => {
         			if (result) {

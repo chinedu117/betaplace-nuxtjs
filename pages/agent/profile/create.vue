@@ -9,6 +9,9 @@
                                       <v-flex md12>
                                        <span class="headline">
                                           Agency Information
+                                       </span><br>
+                                       <span class="grey--text subheading text-lowercase" style="letter-spacing: 2px; overflow: hidden">
+                                        {{ profile.agent_slug ? profile.agent_slug : '' }}
                                        </span>
                                      </v-flex>
                                      
@@ -30,7 +33,7 @@
                             @change="setAgentHandle"
                             ></v-text-field>
 
-                            <v-text-field
+                           <!--  <v-text-field
                             outline
                             name="agent_handle"
                             v-model="profile.agent_handle"
@@ -42,7 +45,7 @@
                             data-vv-name="agent_handle"
                             v-model="profile.agent_handle"
                             required
-                             ></v-text-field>
+                             ></v-text-field> -->
     
                             <v-text-field
                             outline
@@ -198,6 +201,7 @@ export default {
 
         this.profile.agent_handle = agencyName.replace(/\s/g,"_").toLowerCase()
     },
+    
     submit(){
          this.$validator.validate().then(result => {
         			if (result) {

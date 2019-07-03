@@ -4,33 +4,28 @@ export default function ({$axios, store}){
              
             
 
-             $axios.onRequest(function(config) {
-                   
-                  if(store.state.common.validation_errors.length > 0){
-
-                     store.dispatch("common/updateServerValidationErrors",[])
-                  }
-
-                   if(store.state.auth.token)
-                   {  
-                   const token = store.state.auth.token
-                   // console.log("New Token is   "+ token)
-                   
-                   config.headers.common['Authorization']  = token
-                   // config.headers.common['Track'] = 'Sample header'
-                   return config
-                  }
-
-
+           $axios.onRequest(function(config) {
                  
-      	    })
+                if(store.state.common.validation_errors.length > 0){
 
-              // $axios.setToken(token)
+                   store.dispatch("common/updateServerValidationErrors",[])
+                }
 
-       
+                 if(store.state.auth.token)
+                 {  
+                 const token = store.state.auth.token
+                 // console.log("New Token is   "+ token)
+                 
+                 config.headers.common['Authorization']  = token
+                 // config.headers.common['Track'] = 'Sample header'
+                 
+                }
+                 
+                 return config
 
+              })
 
-       
+              // $axios.setToken(token) 
         // Intercept the response and refresh (one retry) if invalid token.
         $axios.onResponse(function (response) {
             

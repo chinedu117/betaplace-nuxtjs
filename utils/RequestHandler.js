@@ -2,10 +2,17 @@ var HandleRequest = {
   data(){
       return {
           loading: false,
-          serverErrors: this.$store.state.common.validation_errors
       }
   },
  
+  computed: {
+       serverErrors(){
+
+          return this.$store.state.common.validation_errors
+             
+       }
+  },
+
   methods:{
     mixin_handleRequest(promiseCallBack){
         

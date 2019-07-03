@@ -168,14 +168,7 @@ export default {
       }
   },
   mixins: [ HandleRequest, insertBreaksFilter],
-  // created(){
-  //     //check if route params was passed
-  //     if(this.$route.params.agentSlug){
-  //         //get the user profile
-  //         this.getMyProfile()
-  //         this.setAgentHandle()
-  //     }
-  // },
+
   computed: {
   
          states(){

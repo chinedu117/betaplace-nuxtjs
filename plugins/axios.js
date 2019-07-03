@@ -8,7 +8,7 @@ export default function ({$axios, store}){
                    
                   if(store.state.common.validation_errors.length > 0){
 
-                     store.dispatch("common/updateServerValidationErrors",null)
+                     store.dispatch("common/updateServerValidationErrors",[])
                   }
 
                    if(store.state.auth.token)

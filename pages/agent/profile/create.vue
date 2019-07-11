@@ -25,7 +25,7 @@
                             name="agency_name"
                             label="Company Name"
                             id="agency_name"
-						    :error-messages="serverErrors.agency_name ? serverErrors.agency_name.pop() : errors.collect('agency_name')"
+						    :error-messages="serverErrors.agency_name ? serverErrors.agency_name  : errors.collect('agency_name')"
                             v-validate.disable="'required|alpha_spaces'"
                             data-vv-name="agency_name"
                             v-model="profile.agency_name"
@@ -39,7 +39,7 @@
                             v-model="profile.agent_handle"
                             label="Your Handle"
                             id="agent_handle"
-                           :error-messages="serverErrors.agent_handle ? serverErrors.agent_handle.pop() : errors.collect('agent_handle')"
+                           :error-messages="serverErrors.agent_handle ? serverErrors.agent_handle  : errors.collect('agent_handle')"
                             v-validate.disable="'required'"
                             disabled
                             data-vv-name="agent_handle"
@@ -49,10 +49,11 @@
     
                             <v-text-field
                             outline
+                            :prefix="profile.phone_prefix"
                             name="phone_number_main"
                             label="Main Phone Number"
                             id="phone_number_main"
-						    :error-messages="serverErrors.phone_number_main ? serverErrors.phone_number_main.pop() : errors.collect('phone_number_main')"
+						    :error-messages="serverErrors.phone_number_main ? serverErrors.phone_number_main  : errors.collect('phone_number_main')"
                             v-validate.disable="'required'"
                             data-vv-name="phone_number_main"
                             v-model="profile.phone_number_main"
@@ -61,10 +62,11 @@
 
                             <v-text-field
                             outline
+                            :prefix="profile.phone_prefix"
                             name="phone_number_other"
                             label="Other Phone Number"
                             id="phone_number_other"
-						    :error-messages="serverErrors.phone_number_other ? serverErrors.phone_number_other.pop() : errors.collect('phone_number_other')"
+						    :error-messages="serverErrors.phone_number_other ? serverErrors.phone_number_other  : errors.collect('phone_number_other')"
                             v-validate.disable="'required'"
                             data-vv-name="phone_number_other"
                             v-model="profile.phone_number_other"
@@ -78,7 +80,7 @@
                                 id="country"
                                 v-validate.disable="'required'"
                                 data-vv-name="country"
-						         :error-messages="serverErrors.country ? serverErrors.country.pop(): errors.collect('country')"
+						         :error-messages="serverErrors.country ? serverErrors.country : errors.collect('country')"
                                 disabled
                                 v-model="profile.country"
                                 required
@@ -89,7 +91,7 @@
                                 :items="states"
                                 outline
                                 v-validate="'required'"
-                               :error-messages="serverErrors.state ? serverErrors.state.pop(): errors.collect('state')"
+                               :error-messages="serverErrors.state ? serverErrors.state : errors.collect('state')"
                                data-vv-name="state"
                                 label="State"
                                 v-model="profile.state"
@@ -106,7 +108,7 @@
                                 v-model="profile.office_address"
                                 v-validate.disable="{ required: true, max:150, regex: /^([0-9a-zA-Z\s',-.]+)$/}"
                                
-						                    :error-messages="serverErrors.office_address ? serverErrors.office_address.pop() : errors.collect('office_address')"
+						                    :error-messages="serverErrors.office_address ? serverErrors.office_address  : errors.collect('office_address')"
                                 @blur="showAddress = true"
                                 id="address"
                             ></v-textarea>
@@ -130,7 +132,7 @@
                                 name="about_us"
                                 v-model="profile.about_us"
                                 :counter="200"
-						        :error-messages="serverErrors.about_us ? serverErrors.about_us.pop() : errors.collect('about_us')"
+						        :error-messages="serverErrors.about_us ? serverErrors.about_us  : errors.collect('about_us')"
                                 v-validate.disable="{ required: true, max:150, regex: /^([0-9a-zA-Z\s',-.]+)$/}"
                                 data-vv-name="about_us"
                                 outline
@@ -165,7 +167,7 @@ export default {
 
   data(){
       return {
-          profile: Object.assign({country:"Nigeria"},this.$store.state.place_view_store.agent_info),
+          profile: Object.assign({country:"Nigeria",phone_prefix: "+234"},this.$store.state.place_view_store.agent_info),
           showAddress: false,
           
       }
@@ -205,7 +207,7 @@ export default {
     submit(){
          this.$validator.validate().then(result => {
         			if (result) {
-						this._submitProfile()
+					         	this._submitProfile()
        				 }
       			})
     },

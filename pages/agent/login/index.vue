@@ -98,8 +98,8 @@
 	  data () {
 	    return {
 	    	credentials: { 
-						  username: '',
-	    	               password: ''
+						  username: 'okon.rachael@example.com',
+	    	               password: 'secret'
 						},
 	    }
 		},

@@ -380,7 +380,7 @@
                                 :error-messages="errors.collect('image_title')"
                                 v-validate="'required'"
                                 data-vv-name="image_title"
-                                v-model="imageTitle"
+                                v-model="imageCaption"
                             ></v-text-field>
                             <v-text-field
                                 name="image_description"
@@ -449,7 +449,7 @@ export default {
 		    // imageUrl: '',
 		    // imageFile: '',
             imageDescription:'',
-            imageTitle:'',
+            imageCaption:'',
             // imageBlob:"",
             newFeature:{ feature: '',value:''},
             newPlace:{
@@ -490,7 +490,8 @@ export default {
          var category = catResponse.data
          let images = []   
          let features = []
-         let place = {place_category_id:'',
+         let place = {
+                      place_category_id:'',
                       description:'',
                       latitude:'',
                       longitude:'',
@@ -511,12 +512,12 @@ export default {
            
                 if(data.features !== null)
                 {
-                   features = data.features.features
+                   features = data.features
                 }
  
                 if(data.images !== null)
                 {
-                  images = data.images.images
+                  images = data.images
                 }
                 
                 delete data['images']
@@ -672,7 +673,7 @@ export default {
         	 		if (result) {
                     let formData = new FormData()
                     formData.append('image',this.imageBlob)
-                    formData.append('title', this.imageTitle)
+                    formData.append('caption', this.imageCaption)
                     formData.append('description',this.imageDescription)
                     formData.append('place_id',this.newPlace.id)
                     formData.append('place_slug',this.newPlace.slug)
@@ -686,7 +687,7 @@ export default {
                                 
                                 //this.nextPage()
                                 //clear vars
-                                this.imageTitle = ''
+                                this.imageCaption = ''
                                 this.imageDescription = ''
                                 this.imageBlob = ''
                                 this.imageUrl = ''
@@ -760,7 +761,7 @@ export default {
                                     })
                             .then(response => {
                                 //set the new data
-                                this.features = response.data.features
+                                this.features = response.data.data
                                 this.featuresEdited = false
                                 // this.nextPage()
                                 // console.log(response.data.id)
@@ -781,7 +782,7 @@ export default {
 
            this.$store.dispatch('common/updateSnackBar',{
                         show: true,
-                        msg: 'Please click "Makr this point" button',
+                        msg: 'Please click "Mark this point" button',
                         color: 'red'
                         })
 
@@ -792,11 +793,14 @@ export default {
         	if (result) {
                   //only go to the next field if all is well
                   
-                  sm.newPlace.editing_mode =  editingMode        
+                sm.newPlace.editing_mode =  editingMode        
                 sm.mixin_handleRequest(sm.$store.dispatch('dashboard_store/savePlace',sm.newPlace)
                             .then(response => {
                                 //set the new data
-                                sm.newPlace = Object.assign(sm.newPlace,response.data)
+                                var data = response.data
+                                delete data['images']
+                                delete data['features']
+                                sm.newPlace = Object.assign(sm.newPlace,data)
                                 // this.nextPage()
                                 //console.log(response.data.id)
                             }))

@@ -143,8 +143,9 @@ components: {
             this.$store.dispatch('dashboard_store/confirmPayment',response.trxref)
             .then((response) =>{
                 //reload the user object
+                const slug = this.$store.getters['auth/getUser'].slug
                 this.$store.dispatch("auth/retrieveUser")
-                this.$router.push({name: "MyPlaces", params:{agentSlug: this.$store.getters['auth/getUser'].slug}})
+                this.$router.push({path: `/dashboard/${slug}`})
                 this.$store.dispatch('common/updateSnackBar',{
                 show: true,
                 msg: 'Payment Successfull: A receipt has been sent to your Mail',

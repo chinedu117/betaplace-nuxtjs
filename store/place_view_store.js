@@ -160,7 +160,7 @@ function agentFromCache(state,slug){
     async  statRequest({commit}, payload){
         
 
-        return this.$axios.post(PLACE_STAT_URL(payload.stat_id),{'action': payload.stat_name})
+        return this.$axios.post(PLACE_STAT_URL(payload.placeSlug),{'action': payload.stat_name})
                           
       },
   

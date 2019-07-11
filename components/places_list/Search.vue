@@ -4,13 +4,13 @@
         v-model="searchText"
         autofocus
         placeholder='Search Place eg. Wuse, Abuja'
-            
+        @keyup.enter="search"    
         box
         id="search-box"
         class="pa-2 elevation-2"
         @blur="clearSearch"
         append-icon="close"
-        prepend-icon="fa-arrow-left"
+        
         @click:prepend="clearSearch"
         @click:append="clearSearch"
         >
@@ -29,17 +29,11 @@ export default {
         }
     },
     
-    watch:{
-        searchText(val)
-        {
-            this.search(val)
-        }
-    },
     methods: {
 
-        search(val){
-            let search = val.trim().toLowerCase();
-            this.$store.dispatch('places_list_store/search',search)
+        search(){
+            // let search = val.trim().toLowerCase();
+            this.$store.dispatch('places_list_store/search',this.searchText.trim().toLowerCase())
         },
         clearSearch()
         {   

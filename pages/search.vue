@@ -3,13 +3,33 @@
       <v-container grid-list-xs class="container--mobile">
         <v-layout row wrap>
             <v-flex xs12 md8 lg8 >
+
+          
+          <v-card  width="700px">
+            <v-card-text>
+               <v-text-field 
+                      focus="true"
+                      v-model="searchText"
+                      autofocus
+                      placeholder='Search Place eg. Wuse, Abuja'
+                      @keyup.enter="search"    
+                      outline
+                      >
+              </v-text-field>
+            </v-card-text>
+            <v-card-actions>
+               <v-btn class="ml-2" dark color="primary" @click="search">Search</v-btn>
+            </v-card-actions>    
+
+          </v-card>
+
           <div
            v-if="places.length > 0"
            class="mx-auto"
           > 
 
            <div class="d-flex justify-space-between">
-              <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
+              <v-subheader>Result <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
            </div>
                 
                 <place-list-item
@@ -24,13 +44,6 @@
 
          </div>
 
-           <div class="pa-2 mt-3 mx-auto elevate-2 checking-place"  v-else >
-        
-              <p>Oops....All the available accomodation has been taken</p>
-
-               <v-btn class="ma-2"  to="/agent/login" outline>Become An Agent</v-btn>
-
-          </div>
 
          </v-flex>
          
@@ -47,8 +60,6 @@
 <script>
 
 import MobileFooter from '@/components/places_list/MobileFooter'
-import Subscribe from '@/components/Subscribe.vue'
-import LoadMore from '@/components/places_list/LoadMore.vue'
 import PlaceListItem from '@/components/places_list/PlaceListItem'
 import ApiPagination from '@/components/ApiPagination.vue'
 
@@ -60,27 +71,13 @@ export default {
 
     return {
       //  places: this.$store.getters['places_list_store/placesFiltered'],
-       
+            searchText: '',
+            showSearch: true
     }
   },
 
-  beforeRouteLeave (to, from, next) {
-    // called when the route that renders this component is about to
-    // be navigated away from.
-    // has access to `this` component instance.
-      //remove the searach box and the filters
-      this.$store.dispatch('common/updateToolBar',{show: true, component: ''})
-      next()
-  },
-  components: { Subscribe, LoadMore, MobileFooter, PlaceListItem, ApiPagination },
+  components: { MobileFooter, PlaceListItem, ApiPagination },
  
-  async fetch({store}){
-       
-          await store.dispatch('places_list_store/retrievePlaces')
-        
-    },
-
-
   computed: {
     card_style(){
          
@@ -88,7 +85,7 @@ export default {
     },
     places:{
         get(){
-            return this.$store.getters['places_list_store/placesFiltered']
+            return this.$store.getters['places_list_store/placesFound']
 
         },
         set(val){
@@ -96,20 +93,28 @@ export default {
         }
 
     },
+
+  
     
   },
 
   methods: {
-     handlePaginationResult(response){
-                  
-                   // this.results = response.data.data
-                   //clear the current items
-                    this.$store.dispatch('places_list_store/clearPlaces')
-                    response.data.data.forEach((place) => {
-                           this.$store.commit('places_list_store/addPlace',place)
-                        })
-         }
-  } 
+        handlePaginationResult(foundResponse){
+
+          this.$store.dispatch('places_list_store/clearSearch')
+          .then(response => {
+               this.$store.dispatch('places_list_store/updateSearchBox',{ 'found': foundResponse.data.data,'show': true})  
+          })
+
+         },
+
+        search(){
+            // let search = val.trim().toLowerCase();
+            if(this.searchText.trim().toLowerCase() == '' || this.searchText.trim().toLowerCase().length < 3)return
+            this.$store.dispatch('places_list_store/search',this.searchText.trim().toLowerCase())
+        },
+      
+    }
 }
 </script>
 

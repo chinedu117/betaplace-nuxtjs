@@ -13,8 +13,8 @@ export const PLACE_URL = (placeSlug) => {
     return baseUrl + '/pl/' + placeSlug
 } 
 
-export const PLACE_STAT_URL = (statID) => {
-    return baseUrl + '/pl/stat/' + statID 
+export const PLACE_STAT_URL = (placeSlug) => {
+    return baseUrl + '/pl/stat/' + placeSlug 
 }
 
 export const AGENT_RATING_URL = (agentSlug) => {

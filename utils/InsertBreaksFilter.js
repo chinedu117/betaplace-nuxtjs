@@ -7,7 +7,11 @@ var InsertBreaks = {
                  
                  for (var i = 0; i <= arguments.length - 1; i++) {
                  	let temp = '' //clear temp
-                 	
+                 	   
+                      if((arguments[i] == undefined) || (arguments[i] == null)){
+
+                         continue
+                      }
 
                       if((arguments[i] !== undefined) && (i !== arguments.length - 1)){
                     	    if( !arguments[i].match(/(,)$/)){

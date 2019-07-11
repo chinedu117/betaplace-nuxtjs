@@ -190,22 +190,22 @@
                                     
                                         <div class="d-inline px-2 mx-2">
                                           <v-icon class="lighten-4" >thumb_up</v-icon>
-                                          <span class="text-capitalize">{{place.statistics.like_no}}</span>
+                                          <span class="text-capitalize">{{place.like_no}}</span>
                                         </div>
 
                                         <div class="d-inline px-2 mx-2">
                                           <v-icon class="lighten-4" >place</v-icon>
-                                          <span class="text-capitalize">{{place.statistics.map_no}}</span>
+                                          <span class="text-capitalize">{{place.map_no}}</span>
                                         </div>
 
                                         <div class="d-inline px-2 mx-2">
                                           <v-icon class="lighten-4" >share</v-icon>
-                                          <span class="text-capitalize">{{place.statistics.share_no}}</span>
+                                          <span class="text-capitalize">{{place.share_no}}</span>
                                         </div>
 
                                         <div class="d-inline px-2 mx-2">
                                           <v-icon class="lighten-4" >visibility</v-icon>
-                                          <span class="text-capitalize">{{place.statistics.seen_no}}</span>
+                                          <span class="text-capitalize">{{place.seen_no}}</span>
                                         </div>
 
                                         <flags :expired="place.expired" :published="place.agent_published" />

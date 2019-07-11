@@ -40,6 +40,18 @@ import * as API from '@/api'
 
  export const getters = {
      
+     placesFound(state) {
+        const userCoords = state.userCoordinates !== null ? true : false
+
+           // if(userCoords){
+           //        //
+           //        return state.filter_box.filtered.sort(function (first, second) {
+           //           return first.distance - second.distance
+           //        })
+           //    }
+        return state.search.found
+     },
+
      placeCategories(state){
         return state.place_categories
      },
@@ -83,18 +95,20 @@ import * as API from '@/api'
 
           return state.places
 
-        }else if(mode == 'search'){
+        }
+        // else if(mode == 'search'){
            
-           if(userCoords){
-                  //
-                  return state.filter_box.filtered.sort(function (first, second) {
-                     return first.distance - second.distance
-                  })
-              }
+        //    if(userCoords){
+        //           //
+        //           return state.filter_box.filtered.sort(function (first, second) {
+        //              return first.distance - second.distance
+        //           })
+        //       }
 
-          return state.search.found
+        //   return state.search.found
           
-        }else if(mode == 'filter'){
+        // }
+        else if(mode == 'filter'){
              //sort by distance
               if(userCoords){
                   //
@@ -188,6 +202,7 @@ import * as API from '@/api'
       },
 
       updateSearchBox(state, payload) {
+          console.log(payload)
           state.search = Object.assign({}, state.search, payload)
       },
       updateFilterBox(state, payload) {
@@ -293,13 +308,17 @@ import * as API from '@/api'
       
         if(!getters.hasLoadedPLaces)
         {  
-            
-           
             return new Promise( (resolve,reject) =>{
               this.$axios.get(API.PLACES_URL.concat(Query))
                 .then(function (response) {
                     
-                 commit('updateNextPage',response.data.next_page_url)
+                 // commit('updateNextPage',response.data.next_page_url)
+
+                  commit('common/updatePagination',
+                                  { 'total_pages': response.data.last_page,
+                                    'url':response.data.first_page_url},
+                                    {root: true})
+
                    response.data.data.forEach((place) => {
                            commit('addPlace',place)
                         })
@@ -329,13 +348,16 @@ import * as API from '@/api'
                 .then(function (response) {
                   
                  // commit('updateNextPage',response.data.next_page_url)
-                 
-                   response.data.forEach((place) => {
+                    commit('common/updatePagination',
+                                  { 'total_pages': response.data.last_page,
+                                    'url':response.data.first_page_url},
+                                    {root: true})
+                   response.data.data.forEach((place) => {
                           
                            commit('addAgentPlace',place)
                         })
                         commit("hasAgentPlacesLoaded",true)
-
+                
                         dispatch('place_view_store/retrieveAgentInfo',agentSlug,{root: true})
                           .then(response => {
                                resolve(response)
@@ -372,7 +394,7 @@ import * as API from '@/api'
                     return new Promise( (resolve,reject) =>{
                         this.$axios.get(API.PLACES_URL.concat(Query))
                          .then(function (response) {
-                             
+                            
                             response.data.forEach((place) => {
                                     commit('addPlacePrefered',place)
                                  })
@@ -389,65 +411,70 @@ import * as API from '@/api'
             }
     },
 
-    retrieveNextPage({commit,getters}){
-        //check if there is next page url in storage
-        //load it
-        //save next page url in the storage
-        //use preferences to fetch others
+    // retrieveNextPage({commit,getters}){
+    //     //check if there is next page url in storage
+    //     //load it
+    //     //save next page url in the storage
+    //     //use preferences to fetch others
         
-         if(getters.nextPageUrl !== null){
-            return new Promise( (resolve,reject) =>{
-                this.$axios.get(getters.nextPageUrl)
-                 .then(function (response) {
+    //      if(getters.nextPageUrl !== null){
+    //         return new Promise( (resolve,reject) =>{
+    //             this.$axios.get(getters.nextPageUrl)
+    //              .then(function (response) {
                     
-                    commit('updateNextPage',response.data.next_page_url)
-                    response.data.data.forEach((place) => {
-                            commit('addPlace',place)
-                         })
+    //                 commit('updateNextPage',response.data.next_page_url)
+    //                 response.data.data.forEach((place) => {
+    //                         commit('addPlace',place)
+    //                      })
                          
-                         resolve(response)
-                     })
-                 .catch(function (error) {
-                     //  console.log(error)
-                          reject(error)
-                 });
-             })
-         }
+    //                      resolve(response)
+    //                  })
+    //              .catch(function (error) {
+    //                  //  console.log(error)
+    //                       reject(error)
+    //              });
+    //          })
+    //      }
                    
             
-    },
+    // },
     // updateUserPreferences({commit}){
     //     commit('updateUserPreferences')
     // },
-    search({commit},searchText)
+   async search({commit},searchText)
     { 
-        commit("addPreferredFilters",{filter_search: searchText})
+       commit("addPreferredFilters",{filter_search: searchText})
+    
+        let SEARCH_URL = API.PLACES_SEARCH_URL
         
-        this.$axios.defaults.withCredentials = true
+        let Query = 'search=' + searchText
+      
+        let response = await  this.$axios.get(SEARCH_URL+ '?' + Query)
+                       
+         await commit('updateSearchBox',{"found": response.data.data, "show":true})
 
-         let SEARCH_URL = API.PLACES_SEARCH_URL
-         // if(state.userCoordinates !== null){
-         //     let Query = '?user_coords='+ state.userCoordinates
-         //    SEARCH_URL = SEARCH_URL.concat(Query)
-         // }
+         await  commit('common/updatePagination',{ 'total_pages': response.data.last_page,'url':response.data.first_page_url + '&' + Query},{root: true})
+        
+        return response
+        // return new Promise( (resolve,reject) =>{
+        //     this.$axios.get(SEARCH_URL+ '?' + Query)
+        //     .then(function (response) {
 
-        return new Promise( (resolve,reject) =>{
-            this.$axios.get(SEARCH_URL,{params:{search:searchText}})
-            .then(function (response) {
 
-                    commit('updateNextPage',null)
-                    commit('updateSearchBox',{found:response.data,show:true})
-                    commit('changeMode','search')
+        //             commit('updateSearchBox',{found: response.data.data, show:true})
+        //             // commit('changeMode','search')
                     
-                    resolve(response)
-                })
-            .catch(function (error) {
-                //  console.log(error)
-                     reject(error)
-            });
+        //             commit('common/updatePagination',{ 'total_pages': response.data.last_page,'url':response.data.first_page_url + '&' + Query},{root: true})
+                    
+        //             resolve(response)
+        //         })
+        //     .catch(function (error) {
+        //         //  console.log(error)
+        //              reject(error)
+        //     });
 
   
-        })
+        // })
         
         
 

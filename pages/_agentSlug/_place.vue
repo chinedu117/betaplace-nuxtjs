@@ -27,7 +27,7 @@
                   <v-card 
                         flat 
                         class="pa-2 mb-2"
-                        v-for="(image, index) in place.images.images"
+                        v-for="(image, index) in place.images"
                         :key="index"
                         color="grey lighten-2"
                         >
@@ -55,11 +55,11 @@
                        
                         <v-card-title class="pb-2" >
                             <div class="text-truncate subheading font-weight-bold">
-                                {{ image.title }}
+                                {{ image.caption }}
                             </div>
                               
                         </v-card-title >
-                        <v-card-text class="pt-0">
+                        <!-- <v-card-text class="pt-0">
 
                             <read-more 
                                 more-str="Read more" 
@@ -71,7 +71,7 @@
                                 >
                             </read-more>
                            
-                       </v-card-text>
+                       </v-card-text> -->
                    </v-card>
                </v-tab-item>
                <v-tab-item>
@@ -115,7 +115,7 @@
                               <v-layout 
                               row 
                               wrap 
-                              v-for="(feature,index) in place.features.features" 
+                              v-for="(feature,index) in place.features" 
                               :key="index"
                               :index="index"
                                fill-height
@@ -147,12 +147,12 @@
                         <v-card-actions height="100px" background-color="grey lighten-5">
                          
                               <action-btn
-                               :stat_id="place.statistics.id"
+                               :placeSlug="place.slug"
                                color="accent"
                                class="action-btn-mobile elevate-3"
                                :longitude="place.longitude"
                                :latitude="place.latitude"
-                               :likes="place.statistics.like_no"
+                               :likes="place.like_no"
                                :agentID="place.agent.id"
                                :social_description="place.description"
                                :social_category="place.category.name"
@@ -323,7 +323,7 @@
                                         <v-layout 
                                         row 
                                         wrap 
-                                        v-for="(feature,index) in place.features.features" 
+                                        v-for="(feature,index) in place.features" 
                                         :key="index"
                                         :index="index"
                                         
@@ -394,12 +394,12 @@
                              </custom-dialog>
 
                               <action-btn
-                               :stat_id="place.statistics.id"
+                               :placeSlug="place.slug"
                                color="accent"
                                class="action-btn-screen"
                                :longitude="place.longitude"
                                :latitude="place.latitude"
-                               :likes="place.statistics.like_no"
+                               :likes="place.like_no"
                                :agentID="place.agent.id"
                                :social_description="place.description"
                                :social_category="place.category.name"

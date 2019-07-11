@@ -64,7 +64,7 @@ export default {
 
     props:{
 
-        stat_id:{
+        placeSlug:{
             required: true,
         },
         likes:{
@@ -120,7 +120,7 @@ export default {
         seeMap(lat,long){
            const googleMapUrl = 'https://www.google.com/maps/search/?api=1&query='+lat+','+long 
         //    location.href = googleMapUrl
-            this.$store.dispatch('place_view_store/statRequest',{stat_id: this.stat_id, stat_name: 'map'})
+            this.$store.dispatch('place_view_store/statRequest',{placeSlug: this.placeSlug, stat_name: 'map'})
 
             window.open(googleMapUrl,'_blank')
         },
@@ -148,7 +148,7 @@ export default {
             {
               
                // this.$store.dispatch('place-view/like')
-               this.$store.dispatch('place_view_store/statRequest',{stat_id: this.stat_id, stat_name: 'like'})
+               this.$store.dispatch('place_view_store/statRequest',{placeSlug: this.placeSlug, stat_name: 'like'})
 
                this.userHasLiked = true
             }
@@ -174,7 +174,7 @@ export default {
 
                 if(!this.userHasShared){
                  
-                  this.$store.dispatch('place_view_store/statRequest',{stat_id: this.stat_id, stat_name: 'share'})
+                  this.$store.dispatch('place_view_store/statRequest',{placeSlug: this.placeSlug, stat_name: 'share'})
                 }
 
         },
@@ -182,7 +182,7 @@ export default {
         seen(){
             if(!this.userHasSeen)
              {  
-                this.$store.dispatch('place_view_store/statRequest',{stat_id: this.stat_id, stat_name: 'seen'})
+                this.$store.dispatch('place_view_store/statRequest',{placeSlug: this.placeSlug, stat_name: 'seen'})
                 
                     
                    this.userHasSeen = true

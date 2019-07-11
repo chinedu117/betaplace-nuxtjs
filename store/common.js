@@ -37,6 +37,10 @@ const defaults = {
       twitter_user: null,
       position_x:null,
       position_y: null,
+    },
+    pagination: {
+       total_page: null,
+       url: null,
     }
   }
 
@@ -46,6 +50,9 @@ export const state = () => {
 }
 
 export const mutations = {
+   updatePagination(state, options) {
+        state.pagination = Object.assign({}, defaults.pagination, options)
+      },
    updateServerValidationErrors(state, errors){
           state.validation_errors = errors
       },

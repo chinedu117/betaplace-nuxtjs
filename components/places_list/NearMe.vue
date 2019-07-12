@@ -38,9 +38,9 @@ export default {
                 // navigator.geolocation.getCurrentPosition(function(position){
                     
                 // })
-                let myLocation 
+                   let myLocation 
                 
-                    
+                    this.$router.push({path: '/'})
 
                     this.$getLocation({
                         enableHighAccuracy: false,

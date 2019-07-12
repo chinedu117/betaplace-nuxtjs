@@ -226,24 +226,18 @@
                                
                               <v-container grid-list-xs class="pb-5" >
                                 <v-layout row wrap>
-                                    <v-flex xs4>
+                                  
+                                <v-flex xs12>
                                     <v-text-field
                                         outline
-                                        name="feature"
-                                        label="Feature"
-                                        id="feature"
-                                        v-model="newFeature.feature"   
-                                    ></v-text-field>
-                                </v-flex>
-                                <v-flex xs8>
-                                    <v-text-field
-                                        outline
-                                        name="value"
-                                        label="Specification"
+                                        name="Feature"
+                                        label="Features"
                                         id="specification"
                                         append-icon="save"
+                                        placeholder="eg.has 2 rooms"
+                                        @keyup.enter="addFeature"
                                         @click:append="addFeature"
-                                        v-model="newFeature.value" 
+                                        v-model="newFeature" 
                                     ></v-text-field>
                                 </v-flex>
                                 </v-layout> 
@@ -257,21 +251,18 @@
                                 :index="index"
                                 
                                 >
-                                    <v-flex xs4 >
-                                        <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word; height: 100%"> 
-                                            {{ feature.feature }}
+                                  <!--   <v-flex xs10 > -->
+                                        <div  
+                                      
+                                        class="pa-2 mb-2 d-flex justify-space-between grey lighten-4 font-weight-bold " style="border-radius: 0.5em"> 
+                                            <span>{{ feature }}</span>
+
+                                            <v-icon class="grey lighten-4 pl-2" size="18px" color="red" @click="removeFeature(index)">close</v-icon>
                                         </div>
                                         
-                                    </v-flex>
-                                    <v-flex xs6 class="justify-space-between" > 
-                                        <div style="height:100%" class="d-block pa-2 grey lighten-4 ">
-                                            {{ feature.value }}
-                                            
-                                        </div>
-                                    </v-flex>
-                                    <v-flex xs2 >
-                                        <v-icon class="pa-2 grey lighten-4" style="display: block; height: 100%" color="red" @click="removeFeature(index)">close</v-icon>
-                                    </v-flex>
+                                   <!--  </v-flex> -->
+                                    
+                                   
                                 </v-layout>
                               
                           </v-container>
@@ -335,25 +326,17 @@
                         </v-img>
                         <v-card-title class="pb-2" >
                             <div class="text-truncate subheading font-weight-bold">
-                                {{ image.title }}
+                                {{ image.caption }}
                             </div>
                               
                         </v-card-title >
                         <v-card-text class="pt-0">
-
-                            <read-more 
-                                more-str="Read more" 
-                                :text="image.description" 
-                                link="#" 
-                                less-str="Read Less" 
-                                :max-chars="50"
-                                class="text--grey"
-                                >
-                            </read-more>
-                           
                        </v-card-text>
                        <v-card-actions>
-                           <v-btn color="success" @click="removeImage(image.id,index)">DELETE</v-btn>
+                           <v-btn dark color="red darken-3" 
+                             @click="removeImage(image.id,index)">
+                           DELETE
+                          </v-btn>
                        </v-card-actions>
                    </v-card>
 
@@ -374,15 +357,15 @@
                            >
                             <img :src="imageUrl"  height="auto" style="max-width:100%"/>
                             <v-text-field
-                                name="image_title"
-                                label="Image Title"
+                                name="image_caption"
+                                label="Image Caption"
                                 id="title"
-                                :error-messages="errors.collect('image_title')"
+                                :error-messages="errors.collect('image_caption')"
                                 v-validate="'required'"
-                                data-vv-name="image_title"
+                                data-vv-name="image_caption"
                                 v-model="imageCaption"
                             ></v-text-field>
-                            <v-text-field
+                            <!-- <v-text-field
                                 name="image_description"
                                 label="Image Description"
                                 id="image-description"
@@ -390,7 +373,7 @@
                                 v-validate="'required'"
                                 data-vv-name="image_description"
                                 v-model="imageDescription"
-                            ></v-text-field>
+                            ></v-text-field> -->
                              <v-card-actions>
                                  <v-btn color="success">CANCEL</v-btn>
                                  <v-btn  color="success" @click="uploadImage"><v-icon> cloud_upload</v-icon></v-btn>
@@ -448,10 +431,10 @@ export default {
             // imageName: '',
 		    // imageUrl: '',
 		    // imageFile: '',
-            imageDescription:'',
+            // imageDescription:'',
             imageCaption:'',
             // imageBlob:"",
-            newFeature:{ feature: '',value:''},
+            newFeature: '',
             newPlace:{
                 place_category_id:'',
                 description:'',
@@ -472,7 +455,7 @@ export default {
            images:[],
            category:[],
            featuresEdited: false,
-          showAddress:false
+           showAddress:false
         }
     },
     mixins: [UploadsImage, HandlesRequest,insertBreaksFilter],
@@ -649,14 +632,13 @@ export default {
        addFeature(){
             
             this.featuresEdited = true
-            if(this.newFeature.feature != '' && this.newFeature.value != ''){
-                    //copy the new feature
-                let newFeatureCopy = Object.assign({},this.newFeature)
+            if(this.newFeature != ''){
+               
                 //add to feature list
-                this.features.push(newFeatureCopy)
+                this.features.unshift(this.newFeature)
                 //clear new feature
-                this.newFeature.feature = ''
-                this.newFeature.value = ''
+                this.newFeature = ''
+              
             }
             // console.log('unable to add feature');
             
@@ -674,7 +656,7 @@ export default {
                     let formData = new FormData()
                     formData.append('image',this.imageBlob)
                     formData.append('caption', this.imageCaption)
-                    formData.append('description',this.imageDescription)
+                    // formData.append('description',this.imageDescription)
                     formData.append('place_id',this.newPlace.id)
                     formData.append('place_slug',this.newPlace.slug)
                 

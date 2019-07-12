@@ -121,15 +121,10 @@
                                fill-height
                                height="auto"
                                >
-                                <v-flex xs4 fill-height>
-                                    <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word"> 
-                                        {{ feature.feature }}
-                                    </div>
-                                    
-                                </v-flex>
-                                <v-flex xs8 fill-height> 
+                               
+                                <v-flex xs12 fill-height> 
                                     <div style="height:auto" class="d-block pa-2 grey lighten-4">
-                                         {{ feature.value }}
+                                         {{ feature  }}
                                     </div>
 
                                 </v-flex>
